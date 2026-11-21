@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>煤流异物标注</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <h1>煤流异物标注</h1>
+    <label class="inline">批次 <select id="batch" aria-label="标注批次"></select></label>
+    <span id="progress"></span>
+    <p id="message" role="status"></p>
+    <button id="export" type="button">导出 A/B</button>
+  </header>
+  <main class="workspace">
+    <aside class="frames" aria-label="图片列表">
+      <label class="stack">筛选图片
+        <select id="filter">
+          <option value="all">全部</option>
+          <option value="pending">异物待复核</option>
+          <option value="material">邻域物料待复核</option>
+          <option value="positive">候选阳性</option>
+          <option value="negative">候选阴性</option>
+          <option value="confirmed-negative">已确认无异物</option>
+          <option value="half">判定 0.5L 足够</option>
+          <option value="full">判定需要 1L</option>
+          <option value="neither">判定两者均不合适</option>
+          <option value="undecided">标记待定</option>
+        </select>
+      </label>
+      <div id="verdict-summary" aria-label="邻域判定汇总"></div>
+      <ol id="frame-list"></ol>
+    </aside>
+    <section class="editor" aria-label="图片和标注">
+      <div class="frame-bar">
+        <div class="frame-caption"><strong id="frame-name">正在载入</strong><small id="frame-meta"></small></div>
+        <div class="frame-nav">
+          <button id="prev" type="button">上一张</button>
+          <button id="next" type="button">下一张</button>
+        </div>
+      </div>
+      <div class="tool-bar">
+        <div class="tools">
+          <button id="select-tool" type="button" aria-pressed="true">选择（B）</button>
+          <button id="draw-tool" type="button" aria-pressed="false">画框（N）</button>
+          <label class="inline">新建类别 <select id="draw-class"></select></label>
+          <div class="zoom-controls" role="group" aria-label="画布缩放">
+            <button id="zoom-out" type="button" aria-label="缩小画布">−</button>
+            <input id="zoom" type="range" aria-label="画布缩放比例" min=".5" max="5" step=".25" value="1">
+            <button id="zoom-in" type="button" aria-label="放大画布">＋</button>
+            <output id="zoom-value" for="zoom">100%</output>
+            <button id="zoom-fit" type="button">适应画布</button>
+          </div>
+        </div>
+        <div class="layers">
+          <label class="inline">邻域
+            <select id="region">
+              <option value="both">同时显示</option><option value="half">0.5L</option>
+              <option value="full">1L</option><option value="off">隐藏</option>
+            </select>
+          </label>
+          <label class="inline">物料框
+            <select id="materials">
+              <option value="none">隐藏（检查全图异物）</option><option value="inner">0.5L 内</option>
+              <option value="ring">0.5L–1L 之间</option><option value="region">随邻域显示</option>
+              <option value="all">全图</option>
+            </select>
+          </label>
+        </div>
+        <div class="region-counts" aria-live="polite">
+          <span class="half">0.5L 内 <output id="count-half">0</output></span>
+          <span class="full">1L 内 <output id="count-full">0</output></span>
+          <span>两线之间 <output id="count-ring">0</output></span>
+        </div>
+      </div>
+      <div class="canvas-scroll" id="canvas-wrap">
+        <canvas id="canvas" aria-label="旋转框标注画布"></canvas>
+      </div>
+      <p class="canvas-help">拖框移动，拖角点缩放，拖框外圆点旋转。Ctrl + 滚轮缩放画布。</p>
+    </section>
+    <aside class="review" aria-label="逐图审核">
+      <fieldset id="review-controls" disabled>
+        <legend>逐图复核</legend>
+        <label class="inline"><input id="foreign-reviewed" type="checkbox">全图异物已复核</label>
+        <label class="inline"><input id="negative" type="checkbox">确认整帧无异物</label>
+        <label class="inline"><input id="material-reviewed" type="checkbox">1L 内物料已复核（覆盖两档）</label>
+        <label class="stack">邻域判定
+          <select id="verdict">
+            <option value="">请选择</option><option value="half">0.5L 足够</option>
+            <option value="full">需要 1L</option><option value="neither">两者均不合适</option>
+            <option value="undecided">待定</option>
+          </select>
+        </label>
+        <label class="stack">备注 <textarea id="note" rows="3" maxlength="1000"></textarea></label>
+        <div class="actions">
+          <button id="save" type="button" class="primary">保存</button>
+          <button id="save-next" type="button">保存并下一张</button>
+        </div>
+        <p id="save-state" role="status"></p>
+      </fieldset>
+      <details open>
+        <summary>画布中的标注 <span id="box-count"></span></summary>
+        <div id="box-editor" hidden>
+          <label class="stack">所选框类别 <select id="box-class"></select></label>
+          <label class="stack">角度（°）<input id="box-angle" type="number" step="0.1"></label>
+          <button id="delete-box" type="button">删除所选框</button>
+        </div>
+        <div id="box-list"></div>
+      </details>
+    </aside>
+  </main>
+  <dialog id="export-dialog">
+    <form method="dialog">
+      <h2>导出 A/B 标注</h2>
+      <label class="stack">统一使用的邻域范围
+        <select id="export-factor">
+          <option value="">请选择</option><option value="0.5">0.5L</option><option value="1">1L</option>
+        </select>
+      </label>
+      <p id="export-count" role="status"></p>
+      <div class="actions">
+        <button>返回</button>
+        <a id="export-download" class="button primary" download hidden>下载 ZIP</a>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
