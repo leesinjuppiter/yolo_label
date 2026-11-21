@@ -218,13 +218,17 @@ function selectedBox() {
 function renderLabels(focusToggleId) {
   if (!frame) return;
   const listed = frame.boxes.filter(matchesLayer);
+  const visibleCount = listed.filter(isVisible).length;
+  const toggleAll = byId('toggle-all-boxes');
+  toggleAll.disabled = listed.length === 0;
+  toggleAll.textContent = listed.length && !visibleCount ? '显示所有' : '隐藏所有';
   const box = selectedBox();
   byId('box-editor').hidden = !box || !isVisible(box);
   if (box && isVisible(box)) {
     byId('box-class').value = classes[box.subtype] ? box.subtype : box.kind === 'foreign' ? 'foreign' : 'other_material';
     byId('box-angle').value = (geometry(box).angle * 180 / Math.PI).toFixed(1);
   }
-  byId('box-count').textContent = listed.filter(isVisible).length + ' / ' + frame.boxes.length;
+  byId('box-count').textContent = visibleCount + ' / ' + frame.boxes.length;
   let focusToggle;
   byId('box-list').replaceChildren(...listed.map(item => {
     const hidden = hiddenBoxes.has(item.id);
@@ -254,6 +258,20 @@ function renderLabels(focusToggleId) {
   }));
   focusToggle?.focus({preventScroll: true});
 }
+
+byId('toggle-all-boxes').addEventListener('click', () => {
+  if (busy || gesture || !frame) return;
+  const listed = frame.boxes.filter(matchesLayer);
+  const hide = listed.some(isVisible);
+  for (const box of listed) {
+    if (hide) hiddenBoxes.add(box.id);
+    else hiddenBoxes.delete(box.id);
+  }
+  if (hiddenBoxes.has(selected)) selected = undefined;
+  updateCursor();
+  renderLabels();
+  draw();
+});
 
 function setSelection(id) {
   selected = id;
