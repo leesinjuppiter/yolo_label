@@ -1,4 +1,4 @@
-"""Evaluate A779 checkpoints on the fixed 300-image validation split."""
+"""Evaluate A600 and A779 checkpoints on the fixed 300-image validation split."""
 import argparse
 import json
 import math
