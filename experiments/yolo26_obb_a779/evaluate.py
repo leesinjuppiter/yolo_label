@@ -1,4 +1,4 @@
-"""Evaluate A600 checkpoints on the fixed 300-image validation split."""
+"""Evaluate A779 checkpoints on the fixed 300-image validation split."""
 import argparse
 import json
 import math
@@ -67,9 +67,9 @@ def main():
     frames = json.loads((args.dataset_dir / "review/frames.json").read_text())
     val = [frame for frame in frames if frame["split"] == "val"]
     assert (len(val), sum(frame["negative"] for frame in val),
-            sum(len(frame["foreign"]) for frame in val)) == (300, 194, 110)
+            sum(len(frame["foreign"]) for frame in val)) == (300, 191, 113)
     options = {"imgsz": 960, "device": 0, "conf": CONFIDENCE_FLOOR,
-               "iou": 0.7, "batch": 1, "max_det": 300, "verbose": False}
+               "iou": 0.7, "batch": 1, "max_det": 300, "verbose": False, "end2end": False}
     model = YOLO(str(args.weights), task="obb")
     first = cv2.imread(str(args.dataset_dir / "images/val" / val[0]["name"]))
     for _ in range(10):
@@ -100,8 +100,8 @@ def main():
     times = sorted(row["milliseconds"] for row in rows)
     summary = {
         "weights": str(args.weights), "predict_settings": options,
-        "polygon_iou_threshold": IOU_THRESHOLD, "foreign_total": 110,
-        "positive_total": 106, "negative_total": 194,
+        "polygon_iou_threshold": IOU_THRESHOLD, "foreign_total": 113,
+        "positive_total": 109, "negative_total": 191,
         "timing_ms": {"mean": statistics.mean(times), "p50": statistics.median(times),
                       "p95": times[math.ceil(0.95 * len(times)) - 1]},
         "operating_points": [operating_point(rows, budget) for budget in (0, 1, 2)],

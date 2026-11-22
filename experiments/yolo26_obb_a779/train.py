@@ -1,4 +1,4 @@
-"""Train the 4911 A600 YOLO26n-OBB baseline from official pretrained weights."""
+"""Train the 4911 A779 YOLO26n-OBB baseline from official pretrained weights."""
 import argparse
 from collections import Counter
 import hashlib
@@ -9,11 +9,11 @@ import shutil
 import time
 from zipfile import ZipFile
 
-DATA_SHA256 = "5e42e40fe48b31dbcc0a95487408795185a3fa100518ffa527f0caab42d6db9e"
+DATA_SHA256 = "35d69c95ffcc794455aaa8d335d8abe36154ed8cb019218c0279c9bf3dd5a954"
 WEIGHTS_SHA256 = "6f51c78197aacda4a33be77294065a9001675fb893f56227a179731b53dbd2b0"
 SPLITS = {
-    "train": {"images": 600, "positive": 254, "negative": 346, "foreign": 270},
-    "val": {"images": 300, "positive": 106, "negative": 194, "foreign": 110},
+    "train": {"images": 779, "positive": 433, "negative": 346, "foreign": 627},
+    "val": {"images": 300, "positive": 109, "negative": 191, "foreign": 113},
 }
 
 
@@ -24,11 +24,11 @@ def sha256(path):
 
 def prepare_dataset(archive_path, dataset_root):
     if sha256(archive_path) != DATA_SHA256:
-        raise ValueError(f"A600 ZIP checksum mismatch: {archive_path}")
+        raise ValueError(f"A779 ZIP checksum mismatch: {archive_path}")
     with ZipFile(archive_path) as archive:
         config = json.loads(archive.read("data.yaml"))
         if config != {"train": "images/train", "val": "images/val", "names": ["foreign"]}:
-            raise ValueError(f"Unexpected A600 classes or splits: {config}")
+            raise ValueError(f"Unexpected A779 classes or splits: {config}")
         frames = json.loads(archive.read("review/frames.json"))
         counts = {split: Counter() for split in SPLITS}
         groups = {split: set() for split in SPLITS}
@@ -71,7 +71,7 @@ def prepare_dataset(archive_path, dataset_root):
                 target = staging / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(archive.read(relative))
-            print(f"Extracted verified A600 to {dataset_root}", flush=True)
+            print(f"Extracted verified A779 to {dataset_root}", flush=True)
             (staging / "data.yaml").write_text(json.dumps({"path": str(dataset_root), **config}, indent=2) + "\n")
             staging.rename(dataset_root)
         else:
@@ -79,7 +79,7 @@ def prepare_dataset(archive_path, dataset_root):
                 split, name = frame["split"], frame["name"]
                 for relative in (f"images/{split}/{name}", f"labels/{split}/{Path(name).stem}.txt"):
                     if (dataset_root / relative).read_bytes() != archive.read(relative):
-                        raise ValueError(f"Extracted A600 differs from ZIP: {relative}")
+                        raise ValueError(f"Extracted A779 differs from ZIP: {relative}")
         print(f"Verified {SPLITS}", flush=True)
     return dataset_root / "data.yaml"
 
@@ -110,7 +110,7 @@ def main():
     from ultralytics import YOLO
 
     if not torch.cuda.is_available():
-        raise RuntimeError("CUDA GPU required for A600 training")
+        raise RuntimeError("CUDA GPU required for A779 training")
     settings = {
         "data": str(data), "imgsz": 960, "epochs": args.epochs, "batch": args.batch,
         "device": 0, "workers": args.workers, "cache": "ram", "amp": True,
@@ -129,16 +129,16 @@ def main():
             "ultralytics": ultralytics.__version__, "gpu": torch.cuda.get_device_name(0),
             "amp_enabled": bool(trainer.amp), "config": settings,
         }
-        (Path(trainer.save_dir) / "a600_run.json").write_text(json.dumps(info, indent=2) + "\n")
+        (Path(trainer.save_dir) / "a779_run.json").write_text(json.dumps(info, indent=2) + "\n")
 
     def start_epoch(trainer):
         torch.cuda.synchronize()
         torch.cuda.reset_peak_memory_stats()
-        trainer.a600_epoch_start = time.perf_counter()
+        trainer.a779_epoch_start = time.perf_counter()
 
     def finish_epoch(trainer):
         torch.cuda.synchronize()
-        seconds = time.perf_counter() - trainer.a600_epoch_start
+        seconds = time.perf_counter() - trainer.a779_epoch_start
         perf = {"epoch": trainer.epoch + 1, "seconds": seconds,
                 "images_per_second": SPLITS["train"]["images"] / seconds,
                 "peak_reserved_mib": torch.cuda.max_memory_reserved() / 1024**2}
@@ -152,7 +152,7 @@ def main():
     best = runs / "weights/best.pt"
     if not best.is_file() or not (runs / "results.csv").is_file():
         raise RuntimeError(f"Training results missing: {runs}")
-    print(f"A600_FINISHED {best} sha256={sha256(best)}", flush=True)
+    print(f"A779_FINISHED {best} sha256={sha256(best)}", flush=True)
 
 
 if __name__ == "__main__":
