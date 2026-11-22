@@ -92,14 +92,19 @@ function reviewedText(item) {
   return '候选' + (item.candidate === 'positive' ? '阳性' : '阴性');
 }
 
+function matchesReviewFilter(item, filter) {
+  if (filter === 'all') return true;
+  if (filter === 'pending') return !item.foreign_reviewed;
+  if (filter === 'material') return item.foreign_reviewed && !item.negative && !item.material_reviewed;
+  if (filter === 'confirmed-negative') return item.negative;
+  return item.candidate === filter;
+}
+
 function shownFrames() {
   const filter = byId('filter').value;
-  if (filter === 'all') return frames;
-  if (filter === 'pending') return frames.filter(item => !item.foreign_reviewed);
-  if (filter === 'material') return frames.filter(item => item.foreign_reviewed && !item.negative && !item.material_reviewed);
-  if (filter === 'confirmed-negative') return frames.filter(item => item.negative);
-  if (filter === 'positive' || filter === 'negative') return frames.filter(item => item.candidate === filter);
-  return [];
+  const query = byId('frame-search').value.trim().toLowerCase();
+  return frames.filter(item => matchesReviewFilter(item, filter)
+    && (!query || item.name.toLowerCase().includes(query) || item.id.toLowerCase().includes(query)));
 }
 
 function neighbor(offset) {
@@ -157,6 +162,7 @@ async function openBatch(id, preferred) {
   frames = result.frames;
   addOptions(byId('batch'), result.batches.map(item => [item.id, item.name]));
   byId('batch').value = id;
+  byId('frame-search').value = '';
   byId('filter').value = 'all';
   const item = frames.find(candidate => candidate.id === preferred)
     || frames.find(candidate => !candidate.foreign_reviewed) || frames[0];
@@ -739,6 +745,15 @@ byId('batch').addEventListener('change', async event => {
 byId('filter').addEventListener('change', () => {
   renderFrames();
   renderControls();
+});
+byId('frame-search').addEventListener('input', () => {
+  renderFrames();
+  renderControls();
+});
+byId('frame-search').addEventListener('keydown', event => {
+  if (event.key !== 'Enter' || event.isComposing) return;
+  const item = shownFrames()[0];
+  if (item) navigate(item.id);
 });
 byId('prev').addEventListener('click', () => { const item = neighbor(-1); if (item) navigate(item.id); });
 byId('next').addEventListener('click', () => { const item = neighbor(1); if (item) navigate(item.id); });
