@@ -12,7 +12,7 @@ DEFAULT = dict.fromkeys(FLAGS, False) | {"verdict": "", "note": "", "version": 0
 
 BATCHES = {
     "pilot": "首批试标 · 100 张",
-    "01_train_0600_base": "训练 · 首轮 600 张",
+    "01_train_0600_base": "训练 · 首轮",
     "02_train_add_0600_to_1200": "训练 · 扩至 1,200 张",
     "03_train_add_0700_to_1900": "训练 · 扩至 1,900 张",
     "04_val_0300": "验证 · 300 张",
@@ -101,11 +101,15 @@ class Store:
                     summary[frame["verdict"]] += 1
         if batch == "pilot":
             frames.sort(key=lambda frame: (frame["pilot_order"] is None, frame["pilot_order"], frame["id"]))
+        batches = BATCHES.copy()
+        first_round = "01_train_0600_base"
+        first_round_count = sum(record["bucket"] == first_round for record in self.dataset.records.values())
+        batches[first_round] = f"{batches[first_round]} {first_round_count} 张"
         return {
             "frames": frames,
             "summary": summary,
             "exportable": sum(sample in self.dataset.records and is_exportable(state) for sample, state in states.items()),
-            "batches": [{"id": k, "name": v} for k, v in BATCHES.items()],
+            "batches": [{"id": k, "name": v} for k, v in batches.items()],
         }
 
     def frame(self, sample):

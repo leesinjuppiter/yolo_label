@@ -83,6 +83,7 @@ class Dataset:
         return self._path(self._images[sample_id])
 
     def frame(self, sample_id):
+        record = self.records[sample_id]
         path = self._path(self._annotations[sample_id])
         root = ElementTree.parse(path).getroot()
         try:
@@ -97,7 +98,7 @@ class Dataset:
                 subtype = obj.findtext("name", "").strip()
                 if subtype == "coal":
                     kind = "material"
-                elif subtype in FOREIGN_SUBTYPES:
+                elif subtype in FOREIGN_SUBTYPES or (subtype == "foreign" and record["original_split"] == "LSW_train"):
                     kind = "foreign"
                 else:
                     unknown.append(subtype)
@@ -125,7 +126,7 @@ class Dataset:
         except ValueError as error:
             raise ValueError(f"{path.name}: {error}") from error
         return {
-            **self.records[sample_id],
+            **record,
             "width": width,
             "height": height,
             "boxes": boxes,
