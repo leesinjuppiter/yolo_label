@@ -13,6 +13,7 @@ const materialClasses = new Set(['coal', 'other_material']);
 const verdicts = {half: '0.5L 足够', full: '需要 1L', neither: '均不合适', undecided: '待定'};
 let batch, frame, image, selected, gesture, drawing;
 let frames = [], busy = false, dirty = false, mode = 'select', exportable = 0;
+let editRevision = 0, pendingSave;
 const hiddenBoxes = new Set();
 
 function make(tag, text) {
@@ -74,6 +75,7 @@ function renderControls() {
 }
 
 function markDirty() {
+  editRevision += 1;
   dirty = true;
   byId('save-state').textContent = '有未保存修改';
 }
@@ -186,18 +188,27 @@ function navigate(id) {
   });
 }
 
-async function saveFrame() {
+async function saveFrame(automatic = false) {
+  if (pendingSave) await pendingSave;
   if (!frame || !dirty) return;
+  const revision = editRevision;
   const {version, boxes, foreign_reviewed, material_reviewed, negative, verdict, note} = frame;
-  frame = await api(framePath(), {method: 'PUT', headers: {'Content-Type': 'application/json'},
+  pendingSave = api(framePath(), {method: 'PUT', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({version, boxes, foreign_reviewed, material_reviewed, negative, verdict, note})});
-  dirty = false;
-  frames[frames.findIndex(item => item.id === frame.id)] = frame;
-  byId('save-state').textContent = '已保存';
-  byId('frame-meta').textContent = [frame.id, frame.split, reviewedText(frame)].join(' · ');
-  syncStatus();
-  renderFrames();
-  updateRegions();
+  try {
+    const saved = await pendingSave;
+    // Keep edits made while an automatic save was in flight.
+    frame.version = saved.version;
+    if (editRevision === revision) {
+      dirty = false;
+      byId('save-state').textContent = automatic ? '已自动保存' : '已保存';
+    }
+    frames[frames.findIndex(item => item.id === frame.id)] = saved;
+    byId('frame-meta').textContent = [saved.id, saved.split, reviewedText(saved)].join(' · ');
+    renderFrames();
+  } finally {
+    pendingSave = undefined;
+  }
 }
 
 function editedKinds(...kinds) {
@@ -761,6 +772,17 @@ window.addEventListener('beforeunload', event => {
   event.preventDefault();
   event.returnValue = '';
 });
+
+async function autosave() {
+  if (!dirty || busy || gesture || pendingSave) return;
+  try {
+    await saveFrame(true);
+  } catch (error) {
+    byId('save-state').textContent = '自动保存失败：' + error.message;
+  }
+}
+
+setInterval(autosave, 10000);
 
 addOptions(byId('draw-class'), Object.entries(classes));
 addOptions(byId('box-class'), Object.entries(classes));
