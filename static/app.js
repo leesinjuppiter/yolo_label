@@ -7,8 +7,8 @@ const canvasWrap = byId('canvas-wrap');
 const zoom = byId('zoom');
 const colors = {foreign: '#87ff9b', material: '#f0e493', selected: '#ffffff', half: '#5cddff'};
 const neighborhoodFactor = 0.5;
-const classes = {foreign: '异物（未细分）', rockbolt: '锚杆', mesh: '网片', stick: '木条',
-  board: '板状物', cap: 'cap', bottle: '瓶子', coal: '煤粒', other_material: '其他物料'};
+const classes = {foreign: '异物（未细分）', rockbolt: '锚杆', mesh: '网片',
+  board: '板状物', bottle: '瓶子', coal: '煤粒', other_material: '其他物料'};
 const materialClasses = new Set(['coal', 'other_material']);
 let batch, frame, image, selected, gesture, drawing;
 let frames = [], busy = false, dirty = false, mode = 'select';

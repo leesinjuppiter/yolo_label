@@ -46,6 +46,8 @@ def validate_boxes(boxes, current):
             raise ValueError("标注框 ID 缺失或重复。")
         if kind not in ("foreign", "material") or not isinstance(subtype, str) or len(subtype) > 80:
             raise ValueError("标注框类别或子类格式错误。")
+        if subtype in ("cap", "stick"):
+            raise ValueError("异物类别已更新，请刷新页面后再保存。")
         if not isinstance(points, list) or len(points) != 4 or any(
             not isinstance(p, list) or len(p) != 2 or any(
                 type(v) not in (int, float) or not math.isfinite(v) for v in p
@@ -82,6 +84,31 @@ class Store:
                     PRIMARY KEY(sample_id, version)
                 );
             """)
+            self.migrate_foreign_classes(db)
+
+    @staticmethod
+    def migrate_foreign_classes(db):
+        db.execute("BEGIN IMMEDIATE")
+        rows = list(db.execute(
+            """SELECT sample_id, state FROM reviews
+               WHERE instr(state, '"cap"') OR instr(state, '"stick"')"""
+        ))
+        for sample, raw in rows:
+            state = json.loads(raw)
+            boxes = [
+                box | {"subtype": "board"} if box["kind"] == "foreign" and box["subtype"] == "stick" else box
+                for box in state["boxes"]
+                if not (box["kind"] == "foreign" and box["subtype"] == "cap")
+            ]
+            if boxes == state["boxes"]:
+                continue
+            state = state | {"version": state["version"] + 1, "boxes": boxes}
+            if not any(box["kind"] == "foreign" for box in boxes):
+                state.update(negative=state["foreign_reviewed"], material_reviewed=False, verdict="")
+            blob = json.dumps(state, ensure_ascii=False, allow_nan=False)
+            db.execute("UPDATE reviews SET state=? WHERE sample_id=?", (blob, sample))
+            db.execute("INSERT INTO history (sample_id, version, state) VALUES (?, ?, ?)",
+                       (sample, state["version"], blob))
 
     def connect(self):
         return sqlite3.connect(self.path, timeout=10)

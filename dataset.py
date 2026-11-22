@@ -14,7 +14,7 @@ BUCKET_SPLITS = {
     "04_val_0300": "val",
     "05_test_0727": "test",
 }
-FOREIGN_SUBTYPES = frozenset(("rockbolt", "mesh", "stick", "board", "cap", "bottle"))
+FOREIGN_SUBTYPES = frozenset(("rockbolt", "mesh", "board", "bottle"))
 PILOT_ROW = re.compile(
     r"^\|\s*(\d+)\s*\|\s*\[原图\]\(candidate_(?:positive|negative)/images/([^/()]+)\)",
     flags=re.MULTILINE,
@@ -96,6 +96,10 @@ class Dataset:
             unknown = []
             for index, obj in enumerate(root.findall("object"), start=1):
                 subtype = obj.findtext("name", "").strip()
+                if subtype == "cap":
+                    continue
+                if subtype == "stick":
+                    subtype = "board"
                 if subtype == "coal":
                     kind = "material"
                 elif subtype in FOREIGN_SUBTYPES or (subtype == "foreign" and record["original_split"] == "LSW_train"):
