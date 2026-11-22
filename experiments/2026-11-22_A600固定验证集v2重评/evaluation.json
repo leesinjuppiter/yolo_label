@@ -1,0 +1,76 @@
+{
+  "验证图数": 300,
+  "阳性图数": 109,
+  "阴性图数": 191,
+  "异物框数": 113,
+  "匹配IoU": 0.5,
+  "配置": {
+    "imgsz": 960,
+    "device": 0,
+    "conf": 0.001,
+    "iou": 0.7,
+    "batch": 1,
+    "max_det": 300,
+    "verbose": false,
+    "end2end": false
+  },
+  "耗时_ms": {
+    "mean": 15.97102434374392,
+    "p50": 15.73293237015605,
+    "p95": 19.28604207932949
+  },
+  "各档指标": {
+    "旧版阈值": {
+      "confidence": 0.5149955153465272,
+      "TP": 88,
+      "FN": 25,
+      "FP": 9,
+      "positive_alarms": 89,
+      "negative_alarms": 1,
+      "error_images": 30,
+      "miss_images": 25,
+      "extra_prediction_images": 8,
+      "recall": 0.7787610619469026,
+      "precision": 0.9072164948453608
+    },
+    "FP0": {
+      "confidence": 0.6840319633483888,
+      "TP": 82,
+      "FN": 31,
+      "FP": 6,
+      "positive_alarms": 86,
+      "negative_alarms": 0,
+      "error_images": 32,
+      "miss_images": 31,
+      "extra_prediction_images": 6,
+      "recall": 0.7256637168141593,
+      "precision": 0.9318181818181818
+    },
+    "FP1": {
+      "confidence": 0.25257268548011785,
+      "TP": 94,
+      "FN": 19,
+      "FP": 12,
+      "positive_alarms": 94,
+      "negative_alarms": 1,
+      "error_images": 25,
+      "miss_images": 19,
+      "extra_prediction_images": 9,
+      "recall": 0.831858407079646,
+      "precision": 0.8867924528301887
+    },
+    "FP2": {
+      "confidence": 0.23513273894786837,
+      "TP": 94,
+      "FN": 19,
+      "FP": 13,
+      "positive_alarms": 94,
+      "negative_alarms": 2,
+      "error_images": 26,
+      "miss_images": 19,
+      "extra_prediction_images": 10,
+      "recall": 0.831858407079646,
+      "precision": 0.8785046728971962
+    }
+  }
+}

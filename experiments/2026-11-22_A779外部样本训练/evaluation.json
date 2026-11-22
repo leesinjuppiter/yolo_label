@@ -1,0 +1,44 @@
+{
+  "predict_settings": {
+    "imgsz": 960,
+    "device": 0,
+    "conf": 0.001,
+    "iou": 0.7,
+    "batch": 1,
+    "max_det": 300,
+    "verbose": false,
+    "end2end": false
+  },
+  "polygon_iou_threshold": 0.5,
+  "foreign_total": 113,
+  "positive_total": 109,
+  "negative_total": 191,
+  "timing_ms": {
+    "mean": 15.289174737408757,
+    "p50": 15.3888501226902,
+    "p95": 16.571061685681343
+  },
+  "operating_points": [
+    {
+      "negative_budget": 0,
+      "confidence": 0.5256187319755555,
+      "foreign_detected": 89,
+      "positive_alarms": 90,
+      "negative_alarms": 0
+    },
+    {
+      "negative_budget": 1,
+      "confidence": 0.47906881570816046,
+      "foreign_detected": 91,
+      "positive_alarms": 92,
+      "negative_alarms": 1
+    },
+    {
+      "negative_budget": 2,
+      "confidence": 0.47635376453399664,
+      "foreign_detected": 91,
+      "positive_alarms": 92,
+      "negative_alarms": 2
+    }
+  ]
+}

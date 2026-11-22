@@ -1,0 +1,94 @@
+{
+  "weights_sha256": "d1c0c752aa50b85b30ac1498b8c3a6fe7ca148cec3027ffe488ac4ee1585c9dd",
+  "ultralytics": "8.4.115",
+  "reports": {
+    "one2many": {
+      "predict_settings": {
+        "imgsz": 960,
+        "device": 0,
+        "conf": 0.001,
+        "iou": 0.7,
+        "batch": 1,
+        "max_det": 300,
+        "verbose": false,
+        "end2end": false
+      },
+      "polygon_iou_threshold": 0.5,
+      "foreign_total": 113,
+      "positive_total": 109,
+      "negative_total": 191,
+      "timing_ms": {
+        "mean": 17.156159893299144,
+        "p50": 16.449403017759323,
+        "p95": 20.898562856018543
+      },
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.5256187319755555,
+          "foreign_detected": 89,
+          "positive_alarms": 90,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.47906881570816046,
+          "foreign_detected": 91,
+          "positive_alarms": 92,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.47635376453399664,
+          "foreign_detected": 91,
+          "positive_alarms": 92,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    "one2one": {
+      "predict_settings": {
+        "imgsz": 960,
+        "device": 0,
+        "conf": 0.001,
+        "iou": 0.7,
+        "batch": 1,
+        "max_det": 300,
+        "verbose": false,
+        "end2end": true
+      },
+      "polygon_iou_threshold": 0.5,
+      "foreign_total": 113,
+      "positive_total": 109,
+      "negative_total": 191,
+      "timing_ms": {
+        "mean": 15.672340303038558,
+        "p50": 15.491084195673466,
+        "p95": 16.796455718576908
+      },
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.41297307610511785,
+          "foreign_detected": 79,
+          "positive_alarms": 78,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.39007201790809637,
+          "foreign_detected": 80,
+          "positive_alarms": 79,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.3869426250457764,
+          "foreign_detected": 80,
+          "positive_alarms": 79,
+          "negative_alarms": 2
+        }
+      ]
+    }
+  }
+}

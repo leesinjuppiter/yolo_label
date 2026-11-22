@@ -1,0 +1,54 @@
+{
+  "run": "a779_yolo26n_obb_960_b24_val_v3",
+  "epochs": 86,
+  "best_native_epoch": 66,
+  "native_map50": 0.7854,
+  "native_map5095": 0.55978,
+  "duration_seconds": 800.496,
+  "weights_sha256": "59469be2d851d602695b669f2761b41d75d34367371f7c526c2aea8db80b9728",
+  "median_gpu_util_percent": 74.0,
+  "peak_memory_mib": 9460,
+  "median_images_per_second": 108.767045943875,
+  "points": [
+    {
+      "negative_budget": 0,
+      "confidence": 0.5430583953857423,
+      "foreign_detected": 84,
+      "positive_alarms": 88,
+      "negative_alarms": 0
+    },
+    {
+      "negative_budget": 1,
+      "confidence": 0.5355451107025148,
+      "foreign_detected": 84,
+      "positive_alarms": 88,
+      "negative_alarms": 1
+    },
+    {
+      "negative_budget": 2,
+      "confidence": 0.37299239635467535,
+      "foreign_detected": 88,
+      "positive_alarms": 91,
+      "negative_alarms": 2
+    }
+  ],
+  "p50_ms": 16.110981348901987,
+  "p95_ms": 17.652207985520363,
+  "training_commit": "0dae64059e9b7048b43a832d0a332eb00eee5b16",
+  "data_sha256": "09f22c3dc73135a941c49860cc3ebce6188d86e86d0c0c9e76db6261b3ea3313",
+  "source_dataset_sha256": "35d69c95ffcc794455aaa8d335d8abe36154ed8cb019218c0279c9bf3dd5a954",
+  "counts": {
+    "train": {
+      "images": 779,
+      "foreign": 626,
+      "negative": 347,
+      "positive": 432
+    },
+    "val": {
+      "images": 300,
+      "foreign": 113,
+      "negative": 191,
+      "positive": 109
+    }
+  }
+}

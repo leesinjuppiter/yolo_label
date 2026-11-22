@@ -1,0 +1,18 @@
+{
+  "run": "a779_yolo26n_obb_960_b24",
+  "epochs": 75,
+  "best_native_epoch": 55,
+  "native_precision": 0.76739,
+  "native_recall": 0.76106,
+  "native_map50": 0.79604,
+  "native_map5095": 0.56426,
+  "duration_seconds": 704.292,
+  "weights_sha256": "d1c0c752aa50b85b30ac1498b8c3a6fe7ca148cec3027ffe488ac4ee1585c9dd",
+  "gpu": {
+    "samples": 740,
+    "median_util_percent": 75.0,
+    "peak_memory_mib": 9452,
+    "median_train_images_per_second_after_first": 109.05757746545547
+  },
+  "commit": "cbcb5d48e8289640c8a71683b16a6e0ae3776aa2"
+}

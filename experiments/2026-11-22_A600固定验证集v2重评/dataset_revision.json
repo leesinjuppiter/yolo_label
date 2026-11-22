@@ -1,0 +1,28 @@
+{
+  "validation_revision": "val_v2",
+  "dataset_sha256": "4b83be6d994efe546f83aff973c1ec400fa7191b49d3e421bac8780a1617bf71",
+  "weights_sha256": "0244d1c64432f0258218524aeb0b674e1b8222b263a8ac7b8f1afb718f01a099",
+  "relabelled_samples": [
+    {
+      "id": "d4911_v_000339",
+      "name": "20250619_015249529_003700.jpg",
+      "version": 4,
+      "subtype": "rockbolt",
+      "material_boxes": 5
+    },
+    {
+      "id": "d4911_v_000376",
+      "name": "20250619_060549409_003966.jpg",
+      "version": 5,
+      "subtype": "rockbolt",
+      "material_boxes": 9
+    },
+    {
+      "id": "d4911_v_000496",
+      "name": "20250620_044841582_000246.jpg",
+      "version": 7,
+      "subtype": "mesh",
+      "material_boxes": 10
+    }
+  ]
+}
