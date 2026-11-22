@@ -660,17 +660,21 @@ canvas.addEventListener('pointerup', event => {
     updateCursor(pointer(event));
     return;
   }
-  if (gesture.kind === 'draw' && drawing) {
+  if (gesture.kind === 'draw') {
+    const points = draftRectangle(gesture.start, pointer(event));
     const min = 5 * visualPixels();
-    if (distance(drawing[0], drawing[1]) >= min && distance(drawing[0], drawing[3]) >= min) {
+    if (distance(points[0], points[1]) >= min && distance(points[0], points[3]) >= min) {
       const subtype = byId('draw-class').value;
       const kind = classKind(subtype);
-      const box = {id: crypto.randomUUID(), kind, subtype, points: normalize(drawing)};
+      const box = {id: crypto.randomUUID(), kind, subtype, points: normalize(points)};
       frame.boxes.push(box);
       if (kind === 'material') byId('materials').value = 'all';
       selected = box.id;
       setMode('select');
       editedKinds(kind);
+      message('');
+    } else {
+      message('画框宽和高至少需要 5 个屏幕像素。请拖出一个框，细小目标可放大后再画。', true);
     }
   } else if (gesture.changed) {
     editedKinds(gesture.box.kind);
