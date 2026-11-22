@@ -638,7 +638,6 @@ canvas.addEventListener('pointerup', event => {
       const kind = classKind(subtype);
       const box = {id: crypto.randomUUID(), kind, subtype, points: normalize(points)};
       frame.boxes.push(box);
-      if (kind === 'material') byId('materials').value = 'all';
       selected = box.id;
       setMode('select');
       editedKinds(kind);
@@ -675,7 +674,6 @@ byId('box-class').addEventListener('change', event => {
   const previous = box.kind;
   box.subtype = event.target.value;
   box.kind = classKind(box.subtype);
-  if (box.kind === 'material') byId('materials').value = 'all';
   editedKinds(previous, box.kind);
   updateRegions();
 });
