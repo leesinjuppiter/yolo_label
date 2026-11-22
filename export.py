@@ -11,6 +11,7 @@ from dataset import in_region
 
 
 SPLITS = ("train", "val", "test")
+NEIGHBORHOOD_FACTOR = 0.5
 DATASETS = {
     "A_foreign": ["foreign"],
     "B_foreign_material": ["foreign", "surrounding_material"],
@@ -46,7 +47,7 @@ def dataset_yaml(splits, classes):
     return json.dumps(settings, indent=2) + "\n"
 
 
-def write_frame(archive, dataset, frame, factor, filenames):
+def write_frame(archive, dataset, frame, filenames):
     name, split = frame["name"], frame["split"]
     if split not in SPLITS or not re.fullmatch(r"[A-Za-z0-9_.-]+\.(?:jpg|jpeg|png)", name, re.IGNORECASE):
         raise ValueError(f"无法导出的样本文件名或分集：{name}")
@@ -67,7 +68,7 @@ def write_frame(archive, dataset, frame, factor, filenames):
         material = [
             box for box in frame["boxes"]
             if box["kind"] == "material"
-            and in_region(box, foreign, frame["width"], frame["height"], factor)
+            and in_region(box, foreign, frame["width"], frame["height"], NEIGHBORHOOD_FACTOR)
         ]
 
     try:
@@ -91,17 +92,14 @@ def write_frame(archive, dataset, frame, factor, filenames):
     return metadata
 
 
-def build_export(dataset, frames, factor, temp_dir=None):
-    if type(factor) not in (float, int) or factor not in (0.5, 1):
-        raise ValueError("请选择 0.5L 或 1L 导出范围")
-
+def build_export(dataset, frames, temp_dir=None):
     stream = TemporaryFile(dir=temp_dir)
     samples, split_counts, filenames = [], {}, set()
     try:
         with ZipFile(stream, "w", ZIP_DEFLATED) as archive:
             for frame in frames:
                 if frame["foreign_reviewed"] and (frame["negative"] or frame["material_reviewed"]):
-                    samples.append(write_frame(archive, dataset, frame, factor, filenames))
+                    samples.append(write_frame(archive, dataset, frame, filenames))
                     split = frame["split"]
                     split_counts[split] = split_counts.get(split, 0) + 1
             if not samples:
@@ -110,7 +108,7 @@ def build_export(dataset, frames, factor, temp_dir=None):
             for directory, classes in DATASETS.items():
                 archive.writestr(f"{directory}/data.yaml", dataset_yaml(split_counts, classes))
             summary = {
-                "neighborhood_factor": factor,
+                "neighborhood_factor": NEIGHBORHOOD_FACTOR,
                 "distance_rule": "material_obb_to_foreign_obb_pixels",
                 "split_sample_counts": split_counts,
                 "has_train_and_val": all(split in split_counts for split in ("train", "val")),

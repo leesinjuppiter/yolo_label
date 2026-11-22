@@ -5,14 +5,13 @@ const canvas = byId('canvas');
 const context = canvas.getContext('2d');
 const canvasWrap = byId('canvas-wrap');
 const zoom = byId('zoom');
-const colors = {foreign: '#87ff9b', material: '#f0e493', selected: '#ffffff',
-  half: '#5cddff', full: '#ffc971'};
+const colors = {foreign: '#87ff9b', material: '#f0e493', selected: '#ffffff', half: '#5cddff'};
+const neighborhoodFactor = 0.5;
 const classes = {foreign: '异物（未细分）', rockbolt: '锚杆', mesh: '网片', stick: '木条',
   board: '板状物', cap: 'cap', bottle: '瓶子', coal: '煤粒', other_material: '其他物料'};
 const materialClasses = new Set(['coal', 'other_material']);
-const verdicts = {half: '0.5L 足够', full: '需要 1L', neither: '均不合适', undecided: '待定'};
 let batch, frame, image, selected, gesture, drawing;
-let frames = [], busy = false, dirty = false, mode = 'select', exportable = 0;
+let frames = [], busy = false, dirty = false, mode = 'select';
 let editRevision = 0, pendingSave;
 const hiddenBoxes = new Set();
 
@@ -68,7 +67,6 @@ function renderControls() {
   byId('negative').disabled = hasForeign;
   byId('foreign-reviewed').disabled = Boolean(frame?.negative) || !hasForeign;
   byId('material-reviewed').disabled = !frame?.foreign_reviewed || !hasForeign;
-  byId('verdict').disabled = !hasForeign;
   byId('prev').disabled = busy || !neighbor(-1);
   byId('next').disabled = busy || !neighbor(1);
   byId('export').disabled = busy || !batch;
@@ -84,7 +82,6 @@ function syncStatus() {
   byId('foreign-reviewed').checked = frame.foreign_reviewed;
   byId('material-reviewed').checked = frame.material_reviewed;
   byId('negative').checked = frame.negative;
-  byId('verdict').value = frame.verdict;
   renderControls();
 }
 
@@ -102,7 +99,7 @@ function shownFrames() {
   if (filter === 'material') return frames.filter(item => item.foreign_reviewed && !item.negative && !item.material_reviewed);
   if (filter === 'confirmed-negative') return frames.filter(item => item.negative);
   if (filter === 'positive' || filter === 'negative') return frames.filter(item => item.candidate === filter);
-  return frames.filter(item => item.verdict === filter);
+  return [];
 }
 
 function neighbor(offset) {
@@ -129,17 +126,6 @@ function renderFrames() {
   if (!list.length) list.push(make('li', '当前筛选无图片'));
   byId('frame-list').replaceChildren(...list);
   byId('progress').textContent = '异物复核 ' + frames.filter(item => item.foreign_reviewed).length + ' / ' + frames.length;
-  byId('verdict-summary').replaceChildren(...Object.entries(verdicts).map(([value, label]) => {
-    const button = make('button', label + ' · ' + frames.filter(item => item.verdict === value).length);
-    button.type = 'button';
-    button.setAttribute('aria-pressed', String(byId('filter').value === value));
-    button.addEventListener('click', () => {
-      byId('filter').value = byId('filter').value === value ? 'all' : value;
-      renderFrames();
-      renderControls();
-    });
-    return button;
-  }));
 }
 
 async function showFrame(id) {
@@ -326,30 +312,22 @@ function boxGap(a, b) {
 function neighborhood() {
   const foreigners = frame.boxes.filter(box => box.kind === 'foreign');
   const areas = foreigners.map(box => ({...geometry(box), points: pixels(box.points)}));
-  const ratios = new Map();
+  const included = new Set();
   for (const box of frame.boxes) {
     if (box.kind !== 'material') continue;
     const points = pixels(box.points);
-    let ratio = Infinity;
-    for (const area of areas) {
-      const gap = boxGap(points, area.points);
-      ratio = Math.min(ratio, Math.max(0, gap - 1e-9) / Math.max(area.width, area.height));
+    if (areas.some(area => boxGap(points, area.points) <= neighborhoodFactor * Math.max(area.width, area.height) + 1e-9)) {
+      included.add(box.id);
     }
-    ratios.set(box.id, ratio);
   }
-  return {areas, ratios};
+  return {areas, included};
 }
 
 let regions;
 function updateRegions(refreshLabels = true) {
   if (!frame) return;
   regions = neighborhood();
-  const values = [...regions.ratios.values()];
-  const half = values.filter(ratio => ratio <= .5).length;
-  const full = values.filter(ratio => ratio <= 1).length;
-  byId('count-half').textContent = half;
-  byId('count-full').textContent = full;
-  byId('count-ring').textContent = full - half;
+  byId('count-half').textContent = regions.included.size;
   if (refreshLabels) renderLabels();
   draw();
 }
@@ -360,31 +338,23 @@ function isVisible(box) {
 
 function matchesLayer(box) {
   if (box.kind === 'foreign') return true;
-  const ratio = regions?.ratios.get(box.id) ?? Infinity;
-  const mode = byId('materials').value, region = byId('region').value;
-  if (mode === 'all') return true;
-  if (mode === 'inner') return ratio <= .5;
-  if (mode === 'ring') return ratio > .5 && ratio <= 1;
-  return mode === 'region' && region !== 'off' && ratio <= (region === 'half' ? .5 : 1);
+  const mode = byId('materials').value;
+  return mode === 'all' || (mode === 'inner' && Boolean(regions?.included.has(box.id)));
 }
 
 function drawNeighborhood() {
-  if (!regions) return;
-  const option = byId('region').value;
-  for (const [layer, factor] of [['full', 1], ['half', .5]]) {
-    if (option !== 'both' && option !== layer) continue;
-    for (const {center, width, height, angle} of regions.areas) {
-      const radius = factor * Math.max(width, height);
-      context.save();
-      context.translate(...center);
-      context.rotate(angle);
-      context.strokeStyle = colors[layer];
-      context.lineWidth = 1.6 * visualPixels();
-      context.beginPath();
-      context.roundRect(-width/2 - radius, -height/2 - radius, width + 2*radius, height + 2*radius, radius);
-      context.stroke();
-      context.restore();
-    }
+  if (!regions || byId('region').value === 'off') return;
+  for (const {center, width, height, angle} of regions.areas) {
+    const radius = neighborhoodFactor * Math.max(width, height);
+    context.save();
+    context.translate(...center);
+    context.rotate(angle);
+    context.strokeStyle = colors.half;
+    context.lineWidth = 1.6 * visualPixels();
+    context.beginPath();
+    context.roundRect(-width/2 - radius, -height/2 - radius, width + 2*radius, height + 2*radius, radius);
+    context.stroke();
+    context.restore();
   }
 }
 
@@ -749,12 +719,10 @@ for (const control of ['foreign-reviewed', 'material-reviewed', 'negative']) {
     markDirty();
   });
 }
-for (const control of ['note', 'verdict']) {
-  byId(control).addEventListener('input', event => {
-    frame[control] = event.target.value;
-    markDirty();
-  });
-}
+byId('note').addEventListener('input', event => {
+  frame.note = event.target.value;
+  markDirty();
+});
 
 byId('delete-box').addEventListener('click', deleteBox);
 byId('select-tool').addEventListener('click', () => setMode('select'));
@@ -784,21 +752,13 @@ for (const control of ['region', 'materials']) {
 }
 byId('export').addEventListener('click', () => run(async () => {
   if (dirty) await saveFrame();
-  const result = await api('/api/frames?batch=' + encodeURIComponent(batch));
-  exportable = result.exportable;
+  const {exportable} = await api('/api/frames?batch=' + encodeURIComponent(batch));
   byId('export-count').textContent = exportable > 0
     ? '全部批次共有 ' + exportable + ' 张符合导出条件的图。'
-    : '请先确认无异物，或完成阳性图的全图异物和 1L 内物料复核。';
-  byId('export-factor').value = '';
-  byId('export-factor').disabled = !(exportable > 0);
-  byId('export-download').hidden = true;
+    : '请先确认无异物，或完成阳性图的全图异物和 0.5L 内物料复核。';
+  byId('export-download').hidden = exportable === 0;
   byId('export-dialog').showModal();
 }));
-byId('export-factor').addEventListener('change', event => {
-  const factor = event.target.value;
-  byId('export-download').hidden = !(factor && exportable > 0);
-  if (factor) byId('export-download').href = '/api/export?factor=' + factor;
-});
 byId('export-download').addEventListener('click', () => byId('export-dialog').close());
 zoom.addEventListener('input', () => setZoom(Number(zoom.value)));
 byId('zoom-out').addEventListener('click', () => setZoom(Number(zoom.value) - Number(zoom.step)));

@@ -81,14 +81,13 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/api/frames":
             self.send_json(store.catalog(query.get("batch", ["pilot"])[0]))
         elif path == "/api/export":
-            factor = query.get("factor", [""])[0]
-            if factor not in ("0.5", "1"):
-                raise ValueError("请选择 0.5L 或 1L 的导出范围。")
-            with build_export(store.dataset, store.export_frames(), float(factor), temp_dir=store.path.parent) as stream:
+            if query.get("factor", ["0.5"]) != ["0.5"]:
+                raise ValueError("导出范围固定为 0.5L。")
+            with build_export(store.dataset, store.export_frames(), temp_dir=store.path.parent) as stream:
                 stream.seek(0, 2)
                 size = stream.tell()
                 stream.seek(0)
-                self.send_headers("application/zip", size, disposition=f'attachment; filename="4911-AB-{factor}L.zip"')
+                self.send_headers("application/zip", size, disposition='attachment; filename="4911-AB-0.5L.zip"')
                 shutil.copyfileobj(stream, self.wfile)
         elif route:
             if route["image"]:

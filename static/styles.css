@@ -42,8 +42,6 @@ h1 { white-space: nowrap; font-size: 1.25rem; margin: 0 .55rem 0 0; font-weight:
 .frames { border-right: 1px solid var(--line); }
 .review { border-left: 1px solid var(--line); }
 .stack { display: grid; gap: .28rem; min-width: 0; }
-#verdict-summary { margin-top: .65rem; display: grid; grid-template-columns: 1fr 1fr; gap: .28rem; }
-#verdict-summary button { font-size: .8rem; padding: .28rem .15rem; }
 #frame-list { padding: 0; margin: .7rem 0 0; list-style: none; }
 #frame-list button { display: grid; text-align: left; width: 100%; gap: .2rem; margin-bottom: .3rem; }
 #frame-list button span { overflow-wrap: anywhere; }
@@ -55,7 +53,6 @@ h1 { white-space: nowrap; font-size: 1.25rem; margin: 0 .55rem 0 0; font-weight:
 .region-counts { font-size: .9rem; gap: 1.05rem; }
 .region-counts output { font-variant-numeric: tabular-nums; font-weight: 700; }
 .half { color: #075678; }
-.full { color: #854604; }
 .tools input[type=range] { width: 76px; }
 .zoom-controls output { font-variant-numeric: tabular-nums; min-width: 4ch; }
 .canvas-scroll {
