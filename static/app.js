@@ -549,6 +549,10 @@ function boxHandle(point, points) {
 }
 
 function updateCursor(point) {
+  if (gesture?.kind === 'pan') {
+    canvas.style.cursor = 'grabbing';
+    return;
+  }
   if (mode === 'draw') {
     canvas.style.cursor = 'crosshair';
     return;
@@ -604,9 +608,14 @@ function alterGesture(operation, point) {
 }
 
 canvas.addEventListener('pointerdown', event => {
-  if (busy || event.button !== 0 || !image) return;
+  if (busy || gesture || !image || (event.button !== 0 && event.button !== 2)) return;
   const point = pointer(event);
-  gesture = chooseGesture(point);
+  if (event.button === 2) {
+    gesture = {kind: 'pan', x: event.clientX, y: event.clientY,
+      left: canvasWrap.scrollLeft, top: canvasWrap.scrollTop};
+  } else {
+    gesture = chooseGesture(point);
+  }
   updateCursor(point);
   if (gesture) {
     gesture.original = gesture.box?.points;
@@ -616,6 +625,15 @@ canvas.addEventListener('pointerdown', event => {
 
 canvas.addEventListener('pointermove', event => {
   const point = pointer(event);
+  if (gesture?.kind === 'pan') {
+    if (event.buttons & 2) {
+      canvasWrap.scrollTo(gesture.left + gesture.x - event.clientX, gesture.top + gesture.y - event.clientY);
+    } else {
+      gesture = undefined;
+      updateCursor(point);
+    }
+    return;
+  }
   updateCursor(point);
   if (!gesture) return;
   if (!gesture.changed && distance(point, gesture.start) < 2*visualPixels()) return;
@@ -637,6 +655,11 @@ function classKind(subtype) {
 
 canvas.addEventListener('pointerup', event => {
   if (!gesture) return;
+  if (gesture.kind === 'pan') {
+    gesture = undefined;
+    updateCursor(pointer(event));
+    return;
+  }
   if (gesture.kind === 'draw' && drawing) {
     const min = 5 * visualPixels();
     if (distance(drawing[0], drawing[1]) >= min && distance(drawing[0], drawing[3]) >= min) {
@@ -664,6 +687,12 @@ canvas.addEventListener('pointercancel', () => {
   updateCursor();
 });
 
+canvas.addEventListener('lostpointercapture', () => {
+  if (gesture?.kind !== 'pan') return;
+  gesture = undefined;
+  updateCursor();
+});
+canvas.addEventListener('contextmenu', event => event.preventDefault());
 canvas.addEventListener('pointerleave', () => updateCursor());
 
 byId('box-class').addEventListener('change', event => {
