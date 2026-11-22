@@ -297,19 +297,43 @@ function setMode(next) {
   byId('draw-tool').setAttribute('aria-pressed', String(mode === 'draw'));
 }
 
+function boxGap(a, b) {
+  const aEdges = a.map((point, i) => [point, a[(i+1)%a.length]]);
+  const bEdges = b.map((point, i) => [point, b[(i+1)%b.length]]);
+  const separated = [...aEdges, ...bEdges].some(([[sx, sy], [ex, ey]]) => {
+    const nx = sy - ey, ny = ex - sx;
+    const aProjection = a.map(([x, y]) => x*nx + y*ny);
+    const bProjection = b.map(([x, y]) => x*nx + y*ny);
+    return Math.max(...aProjection) < Math.min(...bProjection)
+      || Math.max(...bProjection) < Math.min(...aProjection);
+  });
+  if (!separated) return 0;
+
+  let nearest = Infinity;
+  for (const [points, edges] of [[a, bEdges], [b, aEdges]]) {
+    for (const [x, y] of points) {
+      for (const [[sx, sy], [ex, ey]] of edges) {
+        const dx = ex - sx, dy = ey - sy;
+        const fraction = ((x-sx)*dx + (y-sy)*dy) / (dx*dx + dy*dy);
+        const position = Math.min(1, Math.max(0, fraction));
+        nearest = Math.min(nearest, (x-sx-position*dx)**2 + (y-sy-position*dy)**2);
+      }
+    }
+  }
+  return Math.sqrt(nearest);
+}
+
 function neighborhood() {
-  const areas = frame.boxes.filter(box => box.kind === 'foreign').map(box => geometry(box));
+  const foreigners = frame.boxes.filter(box => box.kind === 'foreign');
+  const areas = foreigners.map(box => ({...geometry(box), points: pixels(box.points)}));
   const ratios = new Map();
   for (const box of frame.boxes) {
     if (box.kind !== 'material') continue;
-    const [x, y] = geometry(box).center;
+    const points = pixels(box.points);
     let ratio = Infinity;
-    for (const {center, width, height, angle} of areas) {
-      const dx = x - center[0], dy = y - center[1];
-      const cos = Math.cos(angle), sin = Math.sin(angle);
-      const u = dx*cos + dy*sin, v = -dx*sin + dy*cos;
-      const dist = Math.hypot(Math.max(0, Math.abs(u)-width/2), Math.max(0, Math.abs(v)-height/2));
-      ratio = Math.min(ratio, dist/Math.max(width, height));
+    for (const area of areas) {
+      const gap = boxGap(points, area.points);
+      ratio = Math.min(ratio, Math.max(0, gap - 1e-9) / Math.max(area.width, area.height));
     }
     ratios.set(box.id, ratio);
   }

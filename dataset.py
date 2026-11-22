@@ -133,25 +133,38 @@ class Dataset:
         }
 
 
+def box_gap(a, b):
+    """Euclidean distance between two convex boxes, including their interiors."""
+    a_edges = list(zip(a, a[1:] + a[:1]))
+    b_edges = list(zip(b, b[1:] + b[:1]))
+    # A separating axis rules out intersection, including when two edges cross.
+    for (sx, sy), (ex, ey) in a_edges + b_edges:
+        nx, ny = sy - ey, ex - sx
+        a_proj = [x*nx + y*ny for x, y in a]
+        b_proj = [x*nx + y*ny for x, y in b]
+        if max(a_proj) < min(b_proj) or max(b_proj) < min(a_proj):
+            break
+    else:
+        return 0.0
+
+    # For disjoint polygons, a nearest pair includes a vertex on one of them.
+    nearest = math.inf
+    for points, edges in ((a, b_edges), (b, a_edges)):
+        for x, y in points:
+            for (sx, sy), (ex, ey) in edges:
+                dx, dy = ex - sx, ey - sy
+                fraction = ((x-sx)*dx + (y-sy)*dy) / (dx*dx + dy*dy)
+                position = min(1.0, max(0.0, fraction))
+                nearest = min(nearest, (x-sx-position*dx)**2 + (y-sy-position*dy)**2)
+    return math.sqrt(nearest)
+
+
 def in_region(material, foreigners, width, height, factor):
-    """Check material center distance to any foreign OBB in original pixels."""
-    material_points = material["points"]
-    center_x = sum(point[0] for point in material_points) * width / 4
-    center_y = sum(point[1] for point in material_points) * height / 4
+    """Include a material box touching or overlapping any expanded foreign OBB."""
+    points = [(x*width, y*height) for x, y in material["points"]]
     for foreign in foreigners:
-        p0, p1, _, p3 = foreign["points"]
-        x = (p1[0] - p0[0]) * width
-        y = (p1[1] - p0[1]) * height
-        z = (p3[0] - p0[0]) * width
-        t = (p3[1] - p0[1]) * height
-        box_width, box_height = math.hypot(x, y), math.hypot(z, t)
-        if not box_width or not box_height:
-            continue
-        offset_x = center_x - p0[0] * width
-        offset_y = center_y - p0[1] * height
-        u = (offset_x*x + offset_y*y) / box_width
-        v = (offset_x*z + offset_y*t) / box_height
-        distance = math.hypot(max(0, -u, u-box_width), max(0, -v, v-box_height))
-        if distance <= factor * max(box_width, box_height) + 1e-9:
+        area = [(x*width, y*height) for x, y in foreign["points"]]
+        long_side = max(math.dist(area[0], area[1]), math.dist(area[0], area[3]))
+        if box_gap(points, area) <= factor * long_side + 1e-9:
             return True
     return False

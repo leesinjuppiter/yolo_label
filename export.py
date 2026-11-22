@@ -111,7 +111,7 @@ def build_export(dataset, frames, factor, temp_dir=None):
                 archive.writestr(f"{directory}/data.yaml", dataset_yaml(split_counts, classes))
             summary = {
                 "neighborhood_factor": factor,
-                "distance_rule": "material_center_to_foreign_obb_pixels",
+                "distance_rule": "material_obb_to_foreign_obb_pixels",
                 "split_sample_counts": split_counts,
                 "has_train_and_val": all(split in split_counts for split in ("train", "val")),
                 "classes": DATASETS,
