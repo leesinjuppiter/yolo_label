@@ -472,11 +472,14 @@ function strokeBox(points, ink, label, emphasis = false, dashed = false) {
   context.setLineDash([]);
   if (!label) return;
   const [x, y] = points.reduce((best, point) => point[1] < best[1] ? point : best);
-  context.font = (10 * scale) + 'px sans-serif';
+  const fontSize = 14 * scale, padding = 2 * scale;
+  context.font = fontSize + 'px sans-serif';
+  const textX = Math.max(padding, Math.min(x, canvas.width - context.measureText(label).width - padding));
+  const textY = Math.max(fontSize + padding, y - padding);
   context.strokeStyle = '#0b1717';
   context.lineWidth = 3*scale;
-  context.strokeText(label, x, Math.max(10*scale, y - 2*scale));
-  context.fillText(label, x, Math.max(10*scale, y - 2*scale));
+  context.strokeText(label, textX, textY);
+  context.fillText(label, textX, textY);
 }
 
 function drawHandles(points) {
