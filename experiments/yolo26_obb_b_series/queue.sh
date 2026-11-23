@@ -56,8 +56,8 @@ for variant in B600 B1189; do
     "$py" -B "$here/diagnostics.py" --b "$directory/checkpoint_eval/best" --a "$a_best" --dataset "$dataset"
     choice="$("$py" -c 'import json,sys; print(json.load(open(sys.argv[1]))["selected"]["evaluation_dir"])' "$directory/checkpoint_eval/summary.json")"
     if [[ "$variant" == B1189 ]]; then
-      "$py" -B "$here/diagnostics.py" --b "$directory/checkpoint_eval/$choice" --a "$a1189/epoch50/val_operating_points.json" --dataset "$dataset"
-      mv -- "$directory/checkpoint_eval/$choice/paired_diagnostics.json" "$directory/checkpoint_eval/$choice/recall_paired_diagnostics.json"
+      "$py" -B "$here/diagnostics.py" --b "$directory/checkpoint_eval/$choice" --a "$a1189/epoch50/val_operating_points.json" \
+        --dataset "$dataset" --output "$directory/checkpoint_eval/$choice/recall_paired_diagnostics.json"
     fi
     if "$py" -c 'import json,sys; sys.exit(not json.load(open(sys.argv[1]))["frames_at_max_det"])' "$directory/checkpoint_eval/$choice/val_operating_points.json"; then
       "$py" -B "$here/evaluate.py" --weights "$directory/weights/$choice.pt" \

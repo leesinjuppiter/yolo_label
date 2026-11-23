@@ -33,6 +33,7 @@ def main():
     parser.add_argument("--b", required=True, type=Path)
     parser.add_argument("--a", required=True, type=Path)
     parser.add_argument("--dataset", required=True, type=Path)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--material-threshold", type=float, default=.25)
     args = parser.parse_args()
     rows = json.loads((args.b / "val_predictions.json").read_text())
@@ -59,7 +60,8 @@ def main():
               "a_fp1": a_point, "paired": details, "subtypes": dict(subtype),
               "timing_raw_inference_ms": b_summary["timing_ms"], "frames_at_max_det": b_summary["frames_at_max_det"],
               "material": material}
-    (args.b / "paired_diagnostics.json").write_text(json.dumps(output, indent=2)+"\n")
+    output_path = args.output or args.b / "paired_diagnostics.json"
+    output_path.write_text(json.dumps(output, indent=2) + "\n")
 
 
 if __name__ == "__main__":
