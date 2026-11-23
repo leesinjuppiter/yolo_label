@@ -432,6 +432,10 @@ function rectangle({center, width, height, angle}) {
     .map(([x, y]) => [center[0] + x*cos - y*sin, center[1] + x*sin + y*cos]);
 }
 
+function clampToImage([x, y]) {
+  return [Math.max(0, Math.min(canvas.width, x)), Math.max(0, Math.min(canvas.height, y))];
+}
+
 function fits(points) {
   return points.every(([x, y]) => x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height);
 }
@@ -441,8 +445,7 @@ function adjustedPoints(points) {
   if (Math.max(...xs) - Math.min(...xs) > canvas.width || Math.max(...ys) - Math.min(...ys) > canvas.height) return null;
   const dx = Math.max(-Math.min(...xs), Math.min(0, canvas.width - Math.max(...xs)));
   const dy = Math.max(-Math.min(...ys), Math.min(0, canvas.height - Math.max(...ys)));
-  return points.map(([x, y]) => [Math.max(0, Math.min(canvas.width, x + dx)),
-    Math.max(0, Math.min(canvas.height, y + dy))]);
+  return points.map(([x, y]) => clampToImage([x + dx, y + dy]));
 }
 
 function rotationHandle(points) {
@@ -519,7 +522,7 @@ function boxHandle(point, points) {
   const nearest = Math.min(...distances);
   if (nearest < 14*scale) {
     const corner = distances.indexOf(nearest);
-    return {kind: 'resize', opposite: points[(corner+2)%4]};
+    return {kind: 'resize', corner, opposite: points[(corner+2)%4]};
   }
   return null;
 }
@@ -558,25 +561,50 @@ function chooseGesture(point) {
 }
 
 function draftRectangle(start, point) {
-  const [x, y] = point.map((value, axis) => Math.max(0, Math.min(axis ? canvas.height : canvas.width, value)));
-  const right = Math.max(start[0], x), left = Math.min(start[0], x);
-  const bottom = Math.max(start[1], y), top = Math.min(start[1], y);
+  const [startX, startY] = clampToImage(start), [x, y] = clampToImage(point);
+  const right = Math.max(startX, x), left = Math.min(startX, x);
+  const bottom = Math.max(startY, y), top = Math.min(startY, y);
   return [[left, top], [right, top], [right, bottom], [left, bottom]];
 }
 
-function resized(operation, point) {
-  const {geometry: initial, opposite} = operation;
-  const [dx, dy] = subtraction(point, opposite);
+function imageEdgeFraction([x, y], [dx, dy]) {
+  const horizontal = dx > 0 ? (canvas.width - x)/dx : dx < 0 ? -x/dx : 1;
+  const vertical = dy > 0 ? (canvas.height - y)/dy : dy < 0 ? -y/dy : 1;
+  return Math.min(1, horizontal, vertical);
+}
+
+function resized(operation, [dx, dy]) {
+  const {geometry: initial, opposite, corner} = operation;
   const c = Math.cos(initial.angle), s = Math.sin(initial.angle);
-  const width = Math.abs(dx*c + dy*s), height = Math.abs(-dx*s + dy*c);
-  if (width < 3 || height < 3) return null;
-  return rectangle({center: midpoint(opposite, point), width, height, angle: initial.angle});
+  const widthSign = corner === 0 || corner === 3 ? -1 : 1;
+  const heightSign = corner < 2 ? -1 : 1;
+  const u = [c*widthSign, s*widthSign], v = [-s*heightSign, c*heightSign];
+  const minWidth = Math.min(3, initial.width), minHeight = Math.min(3, initial.height);
+  const [x, y] = opposite;
+  const minimum = adjustedPoints([opposite, [x + u[0]*minWidth, y + u[1]*minWidth],
+    [x + u[0]*minWidth + v[0]*minHeight, y + u[1]*minWidth + v[1]*minHeight],
+    [x + v[0]*minHeight, y + v[1]*minHeight]]);
+  if (!minimum) return null;
+  const [anchor, widthCorner, draggedCorner, heightCorner] = minimum;
+  let growWidth = Math.max(0, initial.width + dx*u[0] + dy*u[1] - minWidth);
+  let growHeight = Math.max(0, initial.height + dx*v[0] + dy*v[1] - minHeight);
+
+  // Limit each side first so a corner can still slide along a straight image edge.
+  const widthDelta = u.map(value => value * growWidth);
+  const heightDelta = v.map(value => value * growHeight);
+  growWidth *= Math.min(imageEdgeFraction(widthCorner, widthDelta), imageEdgeFraction(draggedCorner, widthDelta));
+  growHeight *= Math.min(imageEdgeFraction(heightCorner, heightDelta), imageEdgeFraction(draggedCorner, heightDelta));
+  const fraction = imageEdgeFraction(draggedCorner,
+    u.map((value, axis) => value*growWidth + v[axis]*growHeight));
+  const width = minWidth + growWidth*fraction, height = minHeight + growHeight*fraction;
+  const center = anchor.map((value, axis) => value + (u[axis]*width + v[axis]*height)/2);
+  return rectangle({center, width, height, angle: initial.angle}).map(clampToImage);
 }
 
 function alterGesture(operation, point) {
   const delta = subtraction(point, operation.start);
   if (operation.kind === 'move') return adjustedPoints(operation.points.map(([x,y]) => [x+delta[0],y+delta[1]]));
-  if (operation.kind === 'resize') return resized(operation, point);
+  if (operation.kind === 'resize') return resized(operation, delta);
   const base = operation.geometry;
   const [tx, ty] = subtraction(operation.start, base.center);
   const [x, y] = subtraction(point, base.center);
