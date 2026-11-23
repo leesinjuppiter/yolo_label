@@ -1,0 +1,223 @@
+{
+  "inputs": {
+    "variant": "B600",
+    "validation_revision": "val_v3",
+    "dataset_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+    "dataset_sha256_role": "source_B1189_archive",
+    "frames_sha256": "f33480c441b45c2331dc6d84a4af9b97e5361ac5f846769cebea996a78e07f69",
+    "counts": {
+      "train": {
+        "images": 600,
+        "foreign": 269,
+        "material": 4263,
+        "negative": 347,
+        "positive": 253,
+        "material_review_pending_positive": 253
+      },
+      "val": {
+        "images": 300,
+        "foreign": 113,
+        "material": 1685,
+        "negative": 191,
+        "positive": 109,
+        "material_review_pending_positive": 109
+      }
+    },
+    "dataset": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600/data.yaml",
+    "weights": {
+      "official": "/root/autodl-tmp/weights/yolo26n-obb.pt"
+    },
+    "weights_sha256": {
+      "official": "6f51c78197aacda4a33be77294065a9001675fb893f56227a179731b53dbd2b0"
+    }
+  },
+  "run_config": {
+    "variant": "B600",
+    "initialization": "official",
+    "validation_revision": "val_v3",
+    "source_zip_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+    "frames_sha256": "f33480c441b45c2331dc6d84a4af9b97e5361ac5f846769cebea996a78e07f69",
+    "weights_sha256": "6f51c78197aacda4a33be77294065a9001675fb893f56227a179731b53dbd2b0",
+    "weights": "/root/autodl-tmp/weights/yolo26n-obb.pt",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "ultralytics": "8.4.115",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "amp_enabled": true,
+    "config": {
+      "data": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600/data.yaml",
+      "imgsz": 960,
+      "epochs": 100,
+      "batch": 24,
+      "device": 0,
+      "workers": 8,
+      "cache": "ram",
+      "amp": true,
+      "seed": 26,
+      "deterministic": true,
+      "patience": 20,
+      "save_period": -1,
+      "resume": false,
+      "optimizer": "AdamW",
+      "lr0": 0.001,
+      "lrf": 0.01,
+      "weight_decay": 0.0005,
+      "cos_lr": true,
+      "mosaic": 0.5,
+      "close_mosaic": 10,
+      "mixup": 0.0,
+      "copy_paste": 0.0,
+      "degrees": 0.0,
+      "translate": 0.05,
+      "scale": 0.3,
+      "fliplr": 0.5,
+      "flipud": 0.0,
+      "plots": true,
+      "project": "/root/autodl-tmp/yolo_obb_1122/runs",
+      "name": "b600_yolo26n_obb_960_b24_official_val_v3"
+    }
+  },
+  "checkpoints": {
+    "selected": {
+      "checkpoint": "best.pt",
+      "sha256": "f7e7dfec03b4c72692abb4f66dada751177c378677785b69541bd954d7fe5a9b",
+      "evaluation_dir": "best",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7062224745750428,
+          "foreign_detected": 62,
+          "positive_alarms": 69,
+          "positive_matched": 62,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6798381209373475,
+          "foreign_detected": 66,
+          "positive_alarms": 73,
+          "positive_matched": 66,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.646164357662201,
+          "foreign_detected": 71,
+          "positive_alarms": 78,
+          "positive_matched": 71,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    "checkpoints": [
+      {
+        "checkpoint": "best.pt",
+        "sha256": "f7e7dfec03b4c72692abb4f66dada751177c378677785b69541bd954d7fe5a9b",
+        "evaluation_dir": "best",
+        "operating_points": [
+          {
+            "negative_budget": 0,
+            "confidence": 0.7062224745750428,
+            "foreign_detected": 62,
+            "positive_alarms": 69,
+            "positive_matched": 62,
+            "negative_alarms": 0
+          },
+          {
+            "negative_budget": 1,
+            "confidence": 0.6798381209373475,
+            "foreign_detected": 66,
+            "positive_alarms": 73,
+            "positive_matched": 66,
+            "negative_alarms": 1
+          },
+          {
+            "negative_budget": 2,
+            "confidence": 0.646164357662201,
+            "foreign_detected": 71,
+            "positive_alarms": 78,
+            "positive_matched": 71,
+            "negative_alarms": 2
+          }
+        ]
+      }
+    ]
+  },
+  "native": {
+    "a": "/root/autodl-tmp/yolo_obb_1122/runs/a600_yolo26n_obb_960_b24_val_v3/val_eval/val_operating_points.json",
+    "b_operating_points": [
+      {
+        "negative_budget": 0,
+        "confidence": 0.7062224745750428,
+        "foreign_detected": 62,
+        "positive_alarms": 69,
+        "positive_matched": 62,
+        "negative_alarms": 0
+      },
+      {
+        "negative_budget": 1,
+        "confidence": 0.6798381209373475,
+        "foreign_detected": 66,
+        "positive_alarms": 73,
+        "positive_matched": 66,
+        "negative_alarms": 1
+      },
+      {
+        "negative_budget": 2,
+        "confidence": 0.646164357662201,
+        "foreign_detected": 71,
+        "positive_alarms": 78,
+        "positive_matched": 71,
+        "negative_alarms": 2
+      }
+    ],
+    "a_fp1": {
+      "negative_budget": 1,
+      "confidence": 0.3017955124378205,
+      "foreign_detected": 89,
+      "positive_alarms": 96,
+      "negative_alarms": 1
+    },
+    "subtypes": {
+      "rockbolt": 63,
+      "board": 13,
+      "mesh": 36,
+      "foreign": 1
+    },
+    "timing_raw_inference_ms": {
+      "mean": 15.548588943978151,
+      "p50": 15.253251418471336,
+      "p95": 16.758030280470848
+    },
+    "frames_at_max_det": 0,
+    "material": {
+      "confidence": 0.25,
+      "validation_positives_pending_review": 109,
+      "oracle_neighborhood": {
+        "tp": 1111,
+        "fp": 393,
+        "fn": 574,
+        "retained": 1504,
+        "precision": 0.7386968085106383,
+        "recall": 0.6593471810089021
+      },
+      "predicted_neighborhood": {
+        "tp": 848,
+        "fp": 299,
+        "fn": 837,
+        "retained": 1147,
+        "precision": 0.7393199651264167,
+        "recall": 0.5032640949554896
+      }
+    }
+  },
+  "recall": null,
+  "epochs": 85,
+  "minutes": 11.769733333333333,
+  "training_images_per_second_median": 105.67946541846395,
+  "gpu_util_median": 74.5,
+  "peak_gpu_mib": 10586,
+  "weights_sha256": {
+    "best.pt": "f7e7dfec03b4c72692abb4f66dada751177c378677785b69541bd954d7fe5a9b"
+  }
+}
