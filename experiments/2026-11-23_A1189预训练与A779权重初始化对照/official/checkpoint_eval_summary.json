@@ -1,0 +1,368 @@
+{
+  "selected": {
+    "checkpoint": "epoch50.pt",
+    "sha256": "ea97348d3aa59237e46e4edcfa5a0aeef2baebece8e47ffbca761939a41ef6ed",
+    "evaluation_dir": "epoch50",
+    "operating_points": [
+      {
+        "negative_budget": 0,
+        "confidence": 0.7441453933715821,
+        "foreign_detected": 73,
+        "positive_alarms": 74,
+        "negative_alarms": 0
+      },
+      {
+        "negative_budget": 1,
+        "confidence": 0.6260732412338258,
+        "foreign_detected": 87,
+        "positive_alarms": 88,
+        "negative_alarms": 1
+      },
+      {
+        "negative_budget": 2,
+        "confidence": 0.47805887460708624,
+        "foreign_detected": 90,
+        "positive_alarms": 93,
+        "negative_alarms": 2
+      }
+    ]
+  },
+  "checkpoints": [
+    {
+      "checkpoint": "best.pt",
+      "sha256": "9d324266ee5627e7d279586ee13e99da39934a7061f292d4ea344420ff1db143",
+      "evaluation_dir": "best",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.733820676803589,
+          "foreign_detected": 85,
+          "positive_alarms": 85,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7238292694091798,
+          "foreign_detected": 85,
+          "positive_alarms": 85,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.6581812500953675,
+          "foreign_detected": 87,
+          "positive_alarms": 87,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "last.pt",
+      "sha256": "4585cafb47aa2d088f185ae96a160f9d71fc03e8b466cbe374c88855f5ccef4c",
+      "evaluation_dir": "last",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7843616008758546,
+          "foreign_detected": 77,
+          "positive_alarms": 78,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7836543321609498,
+          "foreign_detected": 77,
+          "positive_alarms": 78,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.7384889721870423,
+          "foreign_detected": 83,
+          "positive_alarms": 84,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch0.pt",
+      "sha256": "55e936fd651db44419e74778e05115131791dc3a188a3faa2a49145eb9cb907b",
+      "evaluation_dir": "epoch0",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.001,
+          "foreign_detected": 1,
+          "positive_alarms": 6,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.001,
+          "foreign_detected": 1,
+          "positive_alarms": 6,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.001,
+          "foreign_detected": 1,
+          "positive_alarms": 6,
+          "negative_alarms": 0
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch10.pt",
+      "sha256": "3047fc9788f67f67b18772291ecce7663d6e0a5bce7ab6f148f52a15afc44c03",
+      "evaluation_dir": "epoch10",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7854003310203553,
+          "foreign_detected": 17,
+          "positive_alarms": 19,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6237627863883973,
+          "foreign_detected": 66,
+          "positive_alarms": 73,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.5894734859466554,
+          "foreign_detected": 68,
+          "positive_alarms": 77,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch20.pt",
+      "sha256": "6648e373180b5f9c57c4b5109dd75be88b06db85b12f1780b0b43e80105d8bb3",
+      "evaluation_dir": "epoch20",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.8130551576614381,
+          "foreign_detected": 8,
+          "positive_alarms": 9,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.730787754058838,
+          "foreign_detected": 54,
+          "positive_alarms": 56,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.6845791935920716,
+          "foreign_detected": 72,
+          "positive_alarms": 74,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch30.pt",
+      "sha256": "6043feb685e0ed76a6fe8a9636c4679a68acf7522f494d0585082623fd171671",
+      "evaluation_dir": "epoch30",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.5734577178955079,
+          "foreign_detected": 76,
+          "positive_alarms": 75,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.5367791056632997,
+          "foreign_detected": 78,
+          "positive_alarms": 77,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.48679709434509283,
+          "foreign_detected": 80,
+          "positive_alarms": 79,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch40.pt",
+      "sha256": "4b0e9e400af929d5b590a736678d5882f3fe327cac4295cf98964a9aca989916",
+      "evaluation_dir": "epoch40",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.579824447631836,
+          "foreign_detected": 79,
+          "positive_alarms": 80,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.5655065178871156,
+          "foreign_detected": 79,
+          "positive_alarms": 80,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.44941520690917974,
+          "foreign_detected": 87,
+          "positive_alarms": 86,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch50.pt",
+      "sha256": "ea97348d3aa59237e46e4edcfa5a0aeef2baebece8e47ffbca761939a41ef6ed",
+      "evaluation_dir": "epoch50",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7441453933715821,
+          "foreign_detected": 73,
+          "positive_alarms": 74,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6260732412338258,
+          "foreign_detected": 87,
+          "positive_alarms": 88,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.47805887460708624,
+          "foreign_detected": 90,
+          "positive_alarms": 93,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch60.pt",
+      "sha256": "18dc4140064631bdcd805084c344e9f463f73a93fe4868304687b5e172b6b2d8",
+      "evaluation_dir": "epoch60",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7645559906959535,
+          "foreign_detected": 70,
+          "positive_alarms": 71,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.5522227883338929,
+          "foreign_detected": 84,
+          "positive_alarms": 84,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.49846827983856207,
+          "foreign_detected": 87,
+          "positive_alarms": 87,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch70.pt",
+      "sha256": "75952cf5877a9f93920c14d578e1ce8071ce5a794bbfcac0e8f1e01007a67397",
+      "evaluation_dir": "epoch70",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7560752630233766,
+          "foreign_detected": 74,
+          "positive_alarms": 75,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7008068561553956,
+          "foreign_detected": 82,
+          "positive_alarms": 83,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.6969078779220582,
+          "foreign_detected": 82,
+          "positive_alarms": 83,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch80.pt",
+      "sha256": "13882711e6ad813e48bf9506d48e89c35e48cfbf39c84f4ff6d1b42f04b962d7",
+      "evaluation_dir": "epoch80",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7208981513977052,
+          "foreign_detected": 82,
+          "positive_alarms": 83,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7021305561065675,
+          "foreign_detected": 82,
+          "positive_alarms": 83,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.6349881887435914,
+          "foreign_detected": 85,
+          "positive_alarms": 86,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch90.pt",
+      "sha256": "47e871aa85816a845629bdcba9f8123551775b8dcd1a93ab1cf8513887eebf7d",
+      "evaluation_dir": "epoch90",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7877128124237062,
+          "foreign_detected": 78,
+          "positive_alarms": 79,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7808159589767457,
+          "foreign_detected": 78,
+          "positive_alarms": 79,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.7436479330062867,
+          "foreign_detected": 85,
+          "positive_alarms": 86,
+          "negative_alarms": 2
+        }
+      ]
+    }
+  ]
+}

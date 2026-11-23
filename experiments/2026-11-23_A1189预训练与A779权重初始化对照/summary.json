@@ -1,0 +1,348 @@
+{
+  "inputs": {
+    "dataset_sha256": "4c05e91c2f27289ebed11d0829f2d46c1d331a14c6040c7f1a1bb4f5ec96a075",
+    "dataset_b_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+    "counts": {
+      "train": {
+        "images": 1189,
+        "negative": 694,
+        "positive": 495,
+        "foreign": 520
+      },
+      "val": {
+        "images": 300,
+        "negative": 191,
+        "positive": 109,
+        "foreign": 113
+      }
+    },
+    "validation_revision": "val_v3",
+    "dataset": "/root/autodl-tmp/yolo_obb_1122/a1189_initialization_20261123/A1189/data.yaml",
+    "weights": {
+      "official": "/root/autodl-tmp/weights/yolo26n-obb.pt",
+      "a779_best": "/root/autodl-tmp/yolo_obb_1122/runs/a779_yolo26n_obb_960_b24_val_v3/weights/best.pt"
+    },
+    "weights_sha256": {
+      "official": "6f51c78197aacda4a33be77294065a9001675fb893f56227a179731b53dbd2b0",
+      "a779_best": "59469be2d851d602695b669f2761b41d75d34367371f7c526c2aea8db80b9728"
+    }
+  },
+  "runs": {
+    "official": {
+      "run": "a1189_yolo26n_obb_960_b24_official_val_v3",
+      "run_config": {
+        "variant": "A1189",
+        "initialization": "official",
+        "validation_revision": "val_v3",
+        "data_sha256": "4c05e91c2f27289ebed11d0829f2d46c1d331a14c6040c7f1a1bb4f5ec96a075",
+        "weights_sha256": "6f51c78197aacda4a33be77294065a9001675fb893f56227a179731b53dbd2b0",
+        "weights": "/root/autodl-tmp/weights/yolo26n-obb.pt",
+        "torch": "2.8.0+cu128",
+        "cuda": "12.8",
+        "ultralytics": "8.4.115",
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "amp_enabled": true,
+        "config": {
+          "data": "/root/autodl-tmp/yolo_obb_1122/a1189_initialization_20261123/A1189/data.yaml",
+          "imgsz": 960,
+          "epochs": 100,
+          "batch": 24,
+          "device": 0,
+          "workers": 12,
+          "cache": "ram",
+          "amp": true,
+          "seed": 26,
+          "deterministic": true,
+          "patience": 20,
+          "save_period": 10,
+          "resume": false,
+          "optimizer": "AdamW",
+          "lr0": 0.001,
+          "lrf": 0.01,
+          "weight_decay": 0.0005,
+          "cos_lr": true,
+          "mosaic": 0.5,
+          "close_mosaic": 10,
+          "mixup": 0.0,
+          "copy_paste": 0.0,
+          "degrees": 0.0,
+          "translate": 0.05,
+          "scale": 0.3,
+          "fliplr": 0.5,
+          "flipud": 0.0,
+          "plots": true,
+          "project": "/root/autodl-tmp/yolo_obb_1122/runs",
+          "name": "a1189_yolo26n_obb_960_b24_official_val_v3"
+        }
+      },
+      "choices": {
+        "map_best": {
+          "checkpoint": "best.pt",
+          "sha256": "9d324266ee5627e7d279586ee13e99da39934a7061f292d4ea344420ff1db143",
+          "operating_points": [
+            {
+              "negative_budget": 0,
+              "confidence": 0.733820676803589,
+              "foreign_detected": 85,
+              "positive_alarms": 85,
+              "negative_alarms": 0
+            },
+            {
+              "negative_budget": 1,
+              "confidence": 0.7238292694091798,
+              "foreign_detected": 85,
+              "positive_alarms": 85,
+              "negative_alarms": 1
+            },
+            {
+              "negative_budget": 2,
+              "confidence": 0.6581812500953675,
+              "foreign_detected": 87,
+              "positive_alarms": 87,
+              "negative_alarms": 2
+            }
+          ],
+          "subtype_total": {
+            "rockbolt": 63,
+            "board": 13,
+            "mesh": 36,
+            "foreign": 1
+          },
+          "subtype_detected_fp1": {
+            "rockbolt": 52,
+            "board": 4,
+            "mesh": 29,
+            "foreign": 0
+          },
+          "timing_ms": {
+            "mean": 15.441801150639852,
+            "p50": 15.294813551008701,
+            "p95": 16.75325073301792
+          },
+          "evaluation_dir": "best"
+        },
+        "recall_best": {
+          "checkpoint": "epoch50.pt",
+          "sha256": "ea97348d3aa59237e46e4edcfa5a0aeef2baebece8e47ffbca761939a41ef6ed",
+          "operating_points": [
+            {
+              "negative_budget": 0,
+              "confidence": 0.7441453933715821,
+              "foreign_detected": 73,
+              "positive_alarms": 74,
+              "negative_alarms": 0
+            },
+            {
+              "negative_budget": 1,
+              "confidence": 0.6260732412338258,
+              "foreign_detected": 87,
+              "positive_alarms": 88,
+              "negative_alarms": 1
+            },
+            {
+              "negative_budget": 2,
+              "confidence": 0.47805887460708624,
+              "foreign_detected": 90,
+              "positive_alarms": 93,
+              "negative_alarms": 2
+            }
+          ],
+          "subtype_total": {
+            "rockbolt": 63,
+            "board": 13,
+            "mesh": 36,
+            "foreign": 1
+          },
+          "subtype_detected_fp1": {
+            "rockbolt": 55,
+            "board": 4,
+            "mesh": 28,
+            "foreign": 0
+          },
+          "timing_ms": {
+            "mean": 15.664918075005213,
+            "p50": 15.556594356894493,
+            "p95": 17.13673211634159
+          },
+          "evaluation_dir": "epoch50"
+        }
+      },
+      "epochs": 100,
+      "mAP50_95_best_epoch": 87,
+      "mAP50": 0.8152,
+      "mAP50_95": 0.57987,
+      "training_seconds_csv": 1386.12,
+      "median_training_images_per_second": 110.02701837129158,
+      "pytorch_peak_reserved_mib": 9104.0,
+      "gpu_max_mib": 9508,
+      "gpu_util_samples": 1424,
+      "gpu_util_median_percent": 72.0,
+      "gpu_util_p95_percent": 99,
+      "gpu_util_ge90_pct_samples": 22.6,
+      "checkpoint_count": 12,
+      "weight_hashes": {
+        "best.pt": "9d324266ee5627e7d279586ee13e99da39934a7061f292d4ea344420ff1db143",
+        "last.pt": "4585cafb47aa2d088f185ae96a160f9d71fc03e8b466cbe374c88855f5ccef4c",
+        "best_recall_fp1.pt": "ea97348d3aa59237e46e4edcfa5a0aeef2baebece8e47ffbca761939a41ef6ed"
+      }
+    },
+    "a779_best": {
+      "run": "a1189_yolo26n_obb_960_b24_a779_best_val_v3",
+      "run_config": {
+        "variant": "A1189",
+        "initialization": "a779_best",
+        "validation_revision": "val_v3",
+        "data_sha256": "4c05e91c2f27289ebed11d0829f2d46c1d331a14c6040c7f1a1bb4f5ec96a075",
+        "weights_sha256": "59469be2d851d602695b669f2761b41d75d34367371f7c526c2aea8db80b9728",
+        "weights": "/root/autodl-tmp/yolo_obb_1122/runs/a779_yolo26n_obb_960_b24_val_v3/weights/best.pt",
+        "torch": "2.8.0+cu128",
+        "cuda": "12.8",
+        "ultralytics": "8.4.115",
+        "gpu": "NVIDIA GeForce RTX 3080 Ti",
+        "amp_enabled": true,
+        "config": {
+          "data": "/root/autodl-tmp/yolo_obb_1122/a1189_initialization_20261123/A1189/data.yaml",
+          "imgsz": 960,
+          "epochs": 100,
+          "batch": 24,
+          "device": 0,
+          "workers": 12,
+          "cache": "ram",
+          "amp": true,
+          "seed": 26,
+          "deterministic": true,
+          "patience": 20,
+          "save_period": 10,
+          "resume": false,
+          "optimizer": "AdamW",
+          "lr0": 0.001,
+          "lrf": 0.01,
+          "weight_decay": 0.0005,
+          "cos_lr": true,
+          "mosaic": 0.5,
+          "close_mosaic": 10,
+          "mixup": 0.0,
+          "copy_paste": 0.0,
+          "degrees": 0.0,
+          "translate": 0.05,
+          "scale": 0.3,
+          "fliplr": 0.5,
+          "flipud": 0.0,
+          "plots": true,
+          "project": "/root/autodl-tmp/yolo_obb_1122/runs",
+          "name": "a1189_yolo26n_obb_960_b24_a779_best_val_v3"
+        }
+      },
+      "choices": {
+        "map_best": {
+          "checkpoint": "best.pt",
+          "sha256": "d8d0a2339d9410bb5f10915f74dd15b870e194dabcc97d3fb1e42e5e0c4544d9",
+          "operating_points": [
+            {
+              "negative_budget": 0,
+              "confidence": 0.8886724114418031,
+              "foreign_detected": 10,
+              "positive_alarms": 10,
+              "negative_alarms": 0
+            },
+            {
+              "negative_budget": 1,
+              "confidence": 0.5864210128784181,
+              "foreign_detected": 82,
+              "positive_alarms": 83,
+              "negative_alarms": 1
+            },
+            {
+              "negative_budget": 2,
+              "confidence": 0.5723175406455995,
+              "foreign_detected": 85,
+              "positive_alarms": 86,
+              "negative_alarms": 2
+            }
+          ],
+          "subtype_total": {
+            "rockbolt": 63,
+            "board": 13,
+            "mesh": 36,
+            "foreign": 1
+          },
+          "subtype_detected_fp1": {
+            "rockbolt": 49,
+            "board": 5,
+            "mesh": 28,
+            "foreign": 0
+          },
+          "timing_ms": {
+            "mean": 15.11525185778737,
+            "p50": 15.230928547680378,
+            "p95": 16.029153019189835
+          },
+          "evaluation_dir": "best"
+        },
+        "recall_best": {
+          "checkpoint": "epoch30.pt",
+          "sha256": "4aed4663fdb0229e0d145485f81fad36d4ac89f5795ee8714b44f205ce1af169",
+          "operating_points": [
+            {
+              "negative_budget": 0,
+              "confidence": 0.7435180544853212,
+              "foreign_detected": 69,
+              "positive_alarms": 70,
+              "negative_alarms": 0
+            },
+            {
+              "negative_budget": 1,
+              "confidence": 0.3694328367710114,
+              "foreign_detected": 86,
+              "positive_alarms": 88,
+              "negative_alarms": 1
+            },
+            {
+              "negative_budget": 2,
+              "confidence": 0.36287561058998113,
+              "foreign_detected": 86,
+              "positive_alarms": 88,
+              "negative_alarms": 2
+            }
+          ],
+          "subtype_total": {
+            "rockbolt": 63,
+            "board": 13,
+            "mesh": 36,
+            "foreign": 1
+          },
+          "subtype_detected_fp1": {
+            "rockbolt": 56,
+            "board": 3,
+            "mesh": 27,
+            "foreign": 0
+          },
+          "timing_ms": {
+            "mean": 14.332625363022089,
+            "p50": 14.753369614481926,
+            "p95": 15.556830912828445
+          },
+          "evaluation_dir": "epoch30"
+        }
+      },
+      "epochs": 43,
+      "mAP50_95_best_epoch": 23,
+      "mAP50": 0.84872,
+      "mAP50_95": 0.58007,
+      "training_seconds_csv": 580.791,
+      "median_training_images_per_second": 112.29445099943419,
+      "pytorch_peak_reserved_mib": 9072.0,
+      "gpu_max_mib": 9474,
+      "gpu_util_samples": 617,
+      "gpu_util_median_percent": 73,
+      "gpu_util_p95_percent": 99,
+      "gpu_util_ge90_pct_samples": 23.5,
+      "checkpoint_count": 7,
+      "weight_hashes": {
+        "best.pt": "d8d0a2339d9410bb5f10915f74dd15b870e194dabcc97d3fb1e42e5e0c4544d9",
+        "last.pt": "ad2b269ec080d0bafb820f49c8eacf7ac65a7474e8fb7d47de9f0027fbacc077",
+        "best_recall_fp1.pt": "4aed4663fdb0229e0d145485f81fad36d4ac89f5795ee8714b44f205ce1af169"
+      }
+    }
+  }
+}

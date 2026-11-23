@@ -1,0 +1,45 @@
+{
+  "weights": "/root/autodl-tmp/yolo_obb_1122/runs/a1189_yolo26n_obb_960_b24_a779_best_val_v3/weights/best.pt",
+  "predict_settings": {
+    "imgsz": 960,
+    "device": 0,
+    "conf": 0.001,
+    "iou": 0.7,
+    "batch": 1,
+    "max_det": 300,
+    "verbose": false,
+    "end2end": false
+  },
+  "polygon_iou_threshold": 0.5,
+  "foreign_total": 113,
+  "positive_total": 109,
+  "negative_total": 191,
+  "timing_ms": {
+    "mean": 15.11525185778737,
+    "p50": 15.230928547680378,
+    "p95": 16.029153019189835
+  },
+  "operating_points": [
+    {
+      "negative_budget": 0,
+      "confidence": 0.8886724114418031,
+      "foreign_detected": 10,
+      "positive_alarms": 10,
+      "negative_alarms": 0
+    },
+    {
+      "negative_budget": 1,
+      "confidence": 0.5864210128784181,
+      "foreign_detected": 82,
+      "positive_alarms": 83,
+      "negative_alarms": 1
+    },
+    {
+      "negative_budget": 2,
+      "confidence": 0.5723175406455995,
+      "foreign_detected": 85,
+      "positive_alarms": 86,
+      "negative_alarms": 2
+    }
+  ]
+}
