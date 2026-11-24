@@ -1,0 +1,352 @@
+{
+  "run_config": {
+    "dataset": "A1189",
+    "scale": "s",
+    "data": {
+      "path": "/root/autodl-tmp/yolo_obb_1122/a1189_initialization_20261123/A1189",
+      "source_sha256": "4c05e91c2f27289ebed11d0829f2d46c1d331a14c6040c7f1a1bb4f5ec96a075",
+      "train_images": 1189,
+      "train_foreign": 520,
+      "train_material": 0
+    },
+    "pretrained": {
+      "path": "/root/autodl-tmp/weights/yolo26s-obb.pt",
+      "sha256": "38dbd72ef6804f9bbbea7ad20f486e6ca6e093c8cd9bc857207a846565bd6e0b"
+    },
+    "test_sha256": "97e109a63890c573438cd8a1f645f7cec72c25f2648d68fdf0aa4bacfde3518b",
+    "torch": "2.8.0+cu128",
+    "ultralytics": "8.4.115",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "config": {
+      "data": "/root/autodl-tmp/yolo_obb_1122/a1189_initialization_20261123/A1189/data.yaml",
+      "imgsz": 960,
+      "epochs": 100,
+      "batch": 5,
+      "device": 0,
+      "workers": 8,
+      "cache": "ram",
+      "amp": true,
+      "seed": 26,
+      "deterministic": true,
+      "patience": 20,
+      "save_period": 20,
+      "optimizer": "AdamW",
+      "lr0": 0.001,
+      "lrf": 0.01,
+      "weight_decay": 0.0005,
+      "cos_lr": true,
+      "mosaic": 0.5,
+      "close_mosaic": 10,
+      "mixup": 0.0,
+      "copy_paste": 0.0,
+      "degrees": 0.0,
+      "translate": 0.05,
+      "scale": 0.3,
+      "fliplr": 0.5,
+      "flipud": 0.0,
+      "plots": false,
+      "project": "/root/autodl-tmp/yolo_obb_1122/obb_matrix_20261123/runs",
+      "name": "a1189_yolo26s_obb_960",
+      "exist_ok": false
+    },
+    "amp": true
+  },
+  "checkpoint_comparison": [
+    {
+      "checkpoint": "best.pt",
+      "sha256": "db798ce983b6b9e950cc6b19a3da802d1104b85e67c32aa2b2e4ed3a10af8e74",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.8002403974533082,
+          "foreign_detected": 51,
+          "positive_alarms": 51,
+          "positive_matched": 51,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7643866539001466,
+          "foreign_detected": 72,
+          "positive_alarms": 72,
+          "positive_matched": 72,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.6643309593200685,
+          "foreign_detected": 88,
+          "positive_alarms": 89,
+          "positive_matched": 88,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "last.pt",
+      "sha256": "027d4b1c0c04a49c3d5499c4be24698bc90ef239fb95415ef459ca100e37555b",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.8061036467552186,
+          "foreign_detected": 45,
+          "positive_alarms": 45,
+          "positive_matched": 45,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.682580590248108,
+          "foreign_detected": 87,
+          "positive_alarms": 87,
+          "positive_matched": 87,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.5973225831985475,
+          "foreign_detected": 93,
+          "positive_alarms": 93,
+          "positive_matched": 93,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch0.pt",
+      "sha256": "bf0f67f39552bf0afd381b53fff52913ac69007bf0e24bcb10c730e9a4276263",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.09488764405250551,
+          "foreign_detected": 7,
+          "positive_alarms": 28,
+          "positive_matched": 7,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.021044986322522167,
+          "foreign_detected": 15,
+          "positive_alarms": 46,
+          "positive_matched": 15,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.020282149314880375,
+          "foreign_detected": 16,
+          "positive_alarms": 47,
+          "positive_matched": 16,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch20.pt",
+      "sha256": "d209f82d51a27e20aa7759286ca48ffc5802b747f74ba41b47d80f23f081f568",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.6248301267623902,
+          "foreign_detected": 47,
+          "positive_alarms": 48,
+          "positive_matched": 47,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.4277206957340241,
+          "foreign_detected": 67,
+          "positive_alarms": 71,
+          "positive_matched": 66,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.36303931474685674,
+          "foreign_detected": 72,
+          "positive_alarms": 77,
+          "positive_matched": 71,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch40.pt",
+      "sha256": "301cec64f25db4d4e98c0a011dbc12abb00d2193bd6673f4a5fca52112179999",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.6981136202812196,
+          "foreign_detected": 22,
+          "positive_alarms": 24,
+          "positive_matched": 22,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6210089921951295,
+          "foreign_detected": 53,
+          "positive_alarms": 56,
+          "positive_matched": 53,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.5133906602859498,
+          "foreign_detected": 74,
+          "positive_alarms": 78,
+          "positive_matched": 74,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch60.pt",
+      "sha256": "edfa567251a35a7b96d334c39c5d9d348c735778dec8c38a16e4c9d1c52f7556",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7581775784492494,
+          "foreign_detected": 42,
+          "positive_alarms": 42,
+          "positive_matched": 42,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6299222707748414,
+          "foreign_detected": 84,
+          "positive_alarms": 85,
+          "positive_matched": 84,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.5342993140220643,
+          "foreign_detected": 88,
+          "positive_alarms": 90,
+          "positive_matched": 88,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch80.pt",
+      "sha256": "05ed52e3dc0076611402e1aa7707f4ab6c6aea7cd8bd7b10a643b2a6c070d5b4",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.8377957940101625,
+          "foreign_detected": 14,
+          "positive_alarms": 14,
+          "positive_matched": 14,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7828358411788942,
+          "foreign_detected": 51,
+          "positive_alarms": 52,
+          "positive_matched": 51,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.3318845927715302,
+          "foreign_detected": 94,
+          "positive_alarms": 95,
+          "positive_matched": 94,
+          "negative_alarms": 2
+        }
+      ]
+    }
+  ],
+  "test": {
+    "checkpoint": "last.pt",
+    "sha256": "027d4b1c0c04a49c3d5499c4be24698bc90ef239fb95415ef459ca100e37555b",
+    "predict_settings": {
+      "imgsz": 960,
+      "device": 0,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "batch": 1,
+      "end2end": false,
+      "agnostic_nms": false,
+      "classes": [
+        0
+      ],
+      "verbose": false
+    },
+    "ap": {
+      "ap50": 0.7955402259522143,
+      "ap50_95": 0.33326309423658196,
+      "ap_by_iou": {
+        "50": 0.7955402259522143,
+        "55": 0.6850245176954609,
+        "60": 0.595086938950917,
+        "65": 0.4923176740450701,
+        "70": 0.3962020448356109,
+        "75": 0.23164503201275594,
+        "80": 0.09426798131376538,
+        "85": 0.030166225490409145,
+        "90": 0.01238030206961583,
+        "95": 0.0
+      }
+    },
+    "frames_at_max_det": 0,
+    "timing_ms": {
+      "p50": 15.35017415881157,
+      "p95": 16.443632543087006
+    },
+    "test_at_val_thresholds": [
+      {
+        "validation_negative_budget": 0,
+        "confidence": 0.8061036467552186,
+        "tp": 110,
+        "fp": 7,
+        "fn": 146,
+        "instance_recall": 0.4296875,
+        "instance_precision": 0.9401709401709402,
+        "negative_false_alarms": 1,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.0021008403361344537,
+        "positive_alarms": 115,
+        "positive_matched": 109,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 1,
+        "confidence": 0.682580590248108,
+        "tp": 191,
+        "fp": 25,
+        "fn": 65,
+        "instance_recall": 0.74609375,
+        "instance_precision": 0.8842592592592593,
+        "negative_false_alarms": 6,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.012605042016806723,
+        "positive_alarms": 206,
+        "positive_matched": 190,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 2,
+        "confidence": 0.5973225831985475,
+        "tp": 202,
+        "fp": 31,
+        "fn": 54,
+        "instance_recall": 0.7890625,
+        "instance_precision": 0.8669527896995708,
+        "negative_false_alarms": 6,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.012605042016806723,
+        "positive_alarms": 219,
+        "positive_matched": 201,
+        "positive_total": 248
+      }
+    ]
+  }
+}

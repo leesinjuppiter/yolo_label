@@ -1,0 +1,352 @@
+{
+  "run_config": {
+    "dataset": "B600",
+    "scale": "l",
+    "data": {
+      "path": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600",
+      "source_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+      "train_images": 600,
+      "train_foreign": 269,
+      "train_material": 4263
+    },
+    "pretrained": {
+      "path": "/root/autodl-tmp/weights/yolo26l-obb.pt",
+      "sha256": "8674b0c24bf68aab5eb45009e0ac3808ce432237edf8cb5c50ae2191cb263a2b"
+    },
+    "test_sha256": "97e109a63890c573438cd8a1f645f7cec72c25f2648d68fdf0aa4bacfde3518b",
+    "torch": "2.8.0+cu128",
+    "ultralytics": "8.4.115",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "config": {
+      "data": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600/data.yaml",
+      "imgsz": 960,
+      "epochs": 100,
+      "batch": 2,
+      "device": 0,
+      "workers": 8,
+      "cache": "ram",
+      "amp": true,
+      "seed": 26,
+      "deterministic": true,
+      "patience": 20,
+      "save_period": 20,
+      "optimizer": "AdamW",
+      "lr0": 0.001,
+      "lrf": 0.01,
+      "weight_decay": 0.0005,
+      "cos_lr": true,
+      "mosaic": 0.5,
+      "close_mosaic": 10,
+      "mixup": 0.0,
+      "copy_paste": 0.0,
+      "degrees": 0.0,
+      "translate": 0.05,
+      "scale": 0.3,
+      "fliplr": 0.5,
+      "flipud": 0.0,
+      "plots": false,
+      "project": "/root/autodl-tmp/yolo_obb_1122/obb_matrix_20261123/runs",
+      "name": "b600_yolo26l_obb_960",
+      "exist_ok": false
+    },
+    "amp": true
+  },
+  "checkpoint_comparison": [
+    {
+      "checkpoint": "best.pt",
+      "sha256": "682e6a38619b47399f252a443deb25b05dbd7a1a9bfb61699ae343462f11691e",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7951232790946962,
+          "foreign_detected": 12,
+          "positive_alarms": 15,
+          "positive_matched": 12,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6127209663391114,
+          "foreign_detected": 65,
+          "positive_alarms": 72,
+          "positive_matched": 65,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.4825462996959687,
+          "foreign_detected": 76,
+          "positive_alarms": 82,
+          "positive_matched": 76,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "last.pt",
+      "sha256": "95d4fe64b4de4e1c35feba7977752922e598b9aa06950da882f5c759b89eef73",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7951232790946962,
+          "foreign_detected": 12,
+          "positive_alarms": 15,
+          "positive_matched": 12,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6127209663391114,
+          "foreign_detected": 65,
+          "positive_alarms": 72,
+          "positive_matched": 65,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.4825462996959687,
+          "foreign_detected": 76,
+          "positive_alarms": 82,
+          "positive_matched": 76,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch0.pt",
+      "sha256": "42e4c66c0a5e850afa50e1ef11346eb9810ee8eb12554cef5a33126395b6d326",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.02384366281330586,
+          "foreign_detected": 14,
+          "positive_alarms": 28,
+          "positive_matched": 14,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.020900173112750057,
+          "foreign_detected": 15,
+          "positive_alarms": 31,
+          "positive_matched": 15,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.011922236531972887,
+          "foreign_detected": 19,
+          "positive_alarms": 36,
+          "positive_matched": 18,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch20.pt",
+      "sha256": "fb74507f7cac8409f22a715de8d74ef3417fa32ec1f6e0052aa5472bdbd3adfd",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.6496500372886659,
+          "foreign_detected": 6,
+          "positive_alarms": 16,
+          "positive_matched": 6,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.2668168246746064,
+          "foreign_detected": 13,
+          "positive_alarms": 30,
+          "positive_matched": 13,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.1931460350751877,
+          "foreign_detected": 18,
+          "positive_alarms": 47,
+          "positive_matched": 18,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch40.pt",
+      "sha256": "cae49d8f16fdce93fc7449e424cca51571a23c53371301d783aa850bb7671315",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7310349345207215,
+          "foreign_detected": 2,
+          "positive_alarms": 2,
+          "positive_matched": 2,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.27622526884078985,
+          "foreign_detected": 41,
+          "positive_alarms": 53,
+          "positive_matched": 41,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.10790155827999116,
+          "foreign_detected": 60,
+          "positive_alarms": 75,
+          "positive_matched": 60,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch60.pt",
+      "sha256": "273e491f701d6021cf4df263c9a2abeba23ab8219ac05382699ad725a0b2409d",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7945873737335206,
+          "foreign_detected": 13,
+          "positive_alarms": 13,
+          "positive_matched": 13,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.5386822819709779,
+          "foreign_detected": 45,
+          "positive_alarms": 50,
+          "positive_matched": 45,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.3612149059772492,
+          "foreign_detected": 66,
+          "positive_alarms": 75,
+          "positive_matched": 66,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch80.pt",
+      "sha256": "19ef9f94ce2a456fd9add7c155a8f61d710e755fe32a57e8288a6f46a8799bf8",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.710286319255829,
+          "foreign_detected": 28,
+          "positive_alarms": 33,
+          "positive_matched": 28,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.6965519189834596,
+          "foreign_detected": 31,
+          "positive_alarms": 36,
+          "positive_matched": 31,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.39589822292327886,
+          "foreign_detected": 78,
+          "positive_alarms": 84,
+          "positive_matched": 78,
+          "negative_alarms": 2
+        }
+      ]
+    }
+  ],
+  "test": {
+    "checkpoint": "best.pt",
+    "sha256": "682e6a38619b47399f252a443deb25b05dbd7a1a9bfb61699ae343462f11691e",
+    "predict_settings": {
+      "imgsz": 960,
+      "device": 0,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "batch": 1,
+      "end2end": false,
+      "agnostic_nms": false,
+      "classes": [
+        0
+      ],
+      "verbose": false
+    },
+    "ap": {
+      "ap50": 0.62274384034859,
+      "ap50_95": 0.2352080384457146,
+      "ap_by_iou": {
+        "50": 0.62274384034859,
+        "55": 0.5563080285075013,
+        "60": 0.45899069348111876,
+        "65": 0.3606867485125217,
+        "70": 0.2206572892817436,
+        "75": 0.08927002220146017,
+        "80": 0.03886025916105759,
+        "85": 0.004563502963152937,
+        "90": 0.0,
+        "95": 0.0
+      }
+    },
+    "frames_at_max_det": 0,
+    "timing_ms": {
+      "p50": 20.84529446437955,
+      "p95": 22.23636396229267
+    },
+    "test_at_val_thresholds": [
+      {
+        "validation_negative_budget": 0,
+        "confidence": 0.7951232790946962,
+        "tp": 43,
+        "fp": 5,
+        "fn": 213,
+        "instance_recall": 0.16796875,
+        "instance_precision": 0.8958333333333334,
+        "negative_false_alarms": 0,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.0,
+        "positive_alarms": 47,
+        "positive_matched": 43,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 1,
+        "confidence": 0.6127209663391114,
+        "tp": 136,
+        "fp": 42,
+        "fn": 120,
+        "instance_recall": 0.53125,
+        "instance_precision": 0.7640449438202247,
+        "negative_false_alarms": 1,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.0021008403361344537,
+        "positive_alarms": 157,
+        "positive_matched": 135,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 2,
+        "confidence": 0.4825462996959687,
+        "tp": 162,
+        "fp": 89,
+        "fn": 94,
+        "instance_recall": 0.6328125,
+        "instance_precision": 0.6454183266932271,
+        "negative_false_alarms": 5,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.01050420168067227,
+        "positive_alarms": 191,
+        "positive_matched": 160,
+        "positive_total": 248
+      }
+    ]
+  }
+}

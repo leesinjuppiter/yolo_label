@@ -1,0 +1,352 @@
+{
+  "run_config": {
+    "dataset": "B600",
+    "scale": "x",
+    "data": {
+      "path": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600",
+      "source_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+      "train_images": 600,
+      "train_foreign": 269,
+      "train_material": 4263
+    },
+    "pretrained": {
+      "path": "/root/autodl-tmp/weights/yolo26x-obb.pt",
+      "sha256": "d7b1d805b0ec149890efde89119ef9d60481566ec83166052c04b5d89d9e3cb7"
+    },
+    "test_sha256": "97e109a63890c573438cd8a1f645f7cec72c25f2648d68fdf0aa4bacfde3518b",
+    "torch": "2.8.0+cu128",
+    "ultralytics": "8.4.115",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "config": {
+      "data": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600/data.yaml",
+      "imgsz": 960,
+      "epochs": 100,
+      "batch": 1,
+      "device": 0,
+      "workers": 8,
+      "cache": "ram",
+      "amp": true,
+      "seed": 26,
+      "deterministic": true,
+      "patience": 20,
+      "save_period": 20,
+      "optimizer": "AdamW",
+      "lr0": 0.001,
+      "lrf": 0.01,
+      "weight_decay": 0.0005,
+      "cos_lr": true,
+      "mosaic": 0.5,
+      "close_mosaic": 10,
+      "mixup": 0.0,
+      "copy_paste": 0.0,
+      "degrees": 0.0,
+      "translate": 0.05,
+      "scale": 0.3,
+      "fliplr": 0.5,
+      "flipud": 0.0,
+      "plots": false,
+      "project": "/root/autodl-tmp/yolo_obb_1122/obb_matrix_20261123/runs",
+      "name": "b600_yolo26x_obb_960",
+      "exist_ok": false
+    },
+    "amp": true
+  },
+  "checkpoint_comparison": [
+    {
+      "checkpoint": "best.pt",
+      "sha256": "2c4088ee35dc70bb957263e1c14bb9d86ffbfd6becba1b5cf6af72d213551fce",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.5930657386779786,
+          "foreign_detected": 29,
+          "positive_alarms": 35,
+          "positive_matched": 29,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.33561778068542486,
+          "foreign_detected": 62,
+          "positive_alarms": 68,
+          "positive_matched": 62,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.04860856011509896,
+          "foreign_detected": 83,
+          "positive_alarms": 91,
+          "positive_matched": 83,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "last.pt",
+      "sha256": "167bcd8665b882d1ff696563b1f0baeca39761f27a8f1b3def7b726c23c774ae",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.681613326072693,
+          "foreign_detected": 21,
+          "positive_alarms": 26,
+          "positive_matched": 21,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.33401468396186834,
+          "foreign_detected": 64,
+          "positive_alarms": 69,
+          "positive_matched": 64,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.042817424982786186,
+          "foreign_detected": 83,
+          "positive_alarms": 91,
+          "positive_matched": 83,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch0.pt",
+      "sha256": "9abc0d01598d2e1ad7708b10c5d668e8a91ece54c606e870c969eee3eb77d0fa",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.04421254619956017,
+          "foreign_detected": 15,
+          "positive_alarms": 27,
+          "positive_matched": 15,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.040207274258136756,
+          "foreign_detected": 15,
+          "positive_alarms": 29,
+          "positive_matched": 15,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.029581308364868168,
+          "foreign_detected": 17,
+          "positive_alarms": 37,
+          "positive_matched": 17,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch20.pt",
+      "sha256": "d4bb5eb79188febfcdd1c7890038f95961800b658f757d50d4c165b78d4f41fb",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.04038651660084725,
+          "foreign_detected": 13,
+          "positive_alarms": 29,
+          "positive_matched": 13,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.0375710278749466,
+          "foreign_detected": 14,
+          "positive_alarms": 31,
+          "positive_matched": 14,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.03250410035252572,
+          "foreign_detected": 14,
+          "positive_alarms": 35,
+          "positive_matched": 14,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch40.pt",
+      "sha256": "47591754a276259ec02bdf872ed92556a7fc3fbecbfb0daab1d2d4c868c7ec4b",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.9939759373664857,
+          "foreign_detected": 3,
+          "positive_alarms": 4,
+          "positive_matched": 3,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7896648645401002,
+          "foreign_detected": 32,
+          "positive_alarms": 40,
+          "positive_matched": 32,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.7046480178833009,
+          "foreign_detected": 37,
+          "positive_alarms": 47,
+          "positive_matched": 37,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch60.pt",
+      "sha256": "f1ea6f7f1b0c41092c0ca7fc9b6eae6c4daac4859076fa24042d0e021eac769e",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.8347793221473695,
+          "foreign_detected": 4,
+          "positive_alarms": 8,
+          "positive_matched": 4,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.36016866564750677,
+          "foreign_detected": 57,
+          "positive_alarms": 73,
+          "positive_matched": 57,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.2776573300361634,
+          "foreign_detected": 60,
+          "positive_alarms": 77,
+          "positive_matched": 60,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch80.pt",
+      "sha256": "9e075b2f7834f1de8f8f8d752c5178ee41d55632c7c47936c35e93a3650f1645",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.8282635211944581,
+          "foreign_detected": 12,
+          "positive_alarms": 14,
+          "positive_matched": 12,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.3867566585540772,
+          "foreign_detected": 64,
+          "positive_alarms": 71,
+          "positive_matched": 64,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.11207990348339082,
+          "foreign_detected": 76,
+          "positive_alarms": 87,
+          "positive_matched": 76,
+          "negative_alarms": 2
+        }
+      ]
+    }
+  ],
+  "test": {
+    "checkpoint": "last.pt",
+    "sha256": "167bcd8665b882d1ff696563b1f0baeca39761f27a8f1b3def7b726c23c774ae",
+    "predict_settings": {
+      "imgsz": 960,
+      "device": 0,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "batch": 1,
+      "end2end": false,
+      "agnostic_nms": false,
+      "classes": [
+        0
+      ],
+      "verbose": false
+    },
+    "ap": {
+      "ap50": 0.44883233941694284,
+      "ap50_95": 0.13755355429519142,
+      "ap_by_iou": {
+        "50": 0.44883233941694284,
+        "55": 0.365658032954925,
+        "60": 0.2510930649418721,
+        "65": 0.15741531156991684,
+        "70": 0.09514406880752373,
+        "75": 0.03770190021037879,
+        "80": 0.018145131902753908,
+        "85": 0.0015364914839402417,
+        "90": 9.201663660789871e-06,
+        "95": 0.0
+      }
+    },
+    "frames_at_max_det": 0,
+    "timing_ms": {
+      "p50": 26.282502803951502,
+      "p95": 26.526563800871372
+    },
+    "test_at_val_thresholds": [
+      {
+        "validation_negative_budget": 0,
+        "confidence": 0.681613326072693,
+        "tp": 45,
+        "fp": 18,
+        "fn": 211,
+        "instance_recall": 0.17578125,
+        "instance_precision": 0.7142857142857143,
+        "negative_false_alarms": 0,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.0,
+        "positive_alarms": 57,
+        "positive_matched": 45,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 1,
+        "confidence": 0.33401468396186834,
+        "tp": 134,
+        "fp": 133,
+        "fn": 122,
+        "instance_recall": 0.5234375,
+        "instance_precision": 0.50187265917603,
+        "negative_false_alarms": 0,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.0,
+        "positive_alarms": 163,
+        "positive_matched": 131,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 2,
+        "confidence": 0.042817424982786186,
+        "tp": 183,
+        "fp": 324,
+        "fn": 73,
+        "instance_recall": 0.71484375,
+        "instance_precision": 0.3609467455621302,
+        "negative_false_alarms": 10,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.02100840336134454,
+        "positive_alarms": 216,
+        "positive_matched": 179,
+        "positive_total": 248
+      }
+    ]
+  }
+}

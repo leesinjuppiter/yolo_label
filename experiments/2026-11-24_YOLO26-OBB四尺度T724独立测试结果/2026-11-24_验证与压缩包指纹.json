@@ -1,0 +1,59 @@
+{
+  "data": {
+    "datasets": {
+      "A600": {
+        "path": "/root/autodl-tmp/yolo_obb_1122/class_v3/A600",
+        "source_sha256": "c5fa3a9fe5a6ef997ed03677ec24c42259a427a9a353dc31f53785fff23e2a0f",
+        "train_images": 600,
+        "train_foreign": 269,
+        "train_material": 0
+      },
+      "B600": {
+        "path": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600",
+        "source_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+        "train_images": 600,
+        "train_foreign": 269,
+        "train_material": 4263
+      },
+      "A1189": {
+        "path": "/root/autodl-tmp/yolo_obb_1122/a1189_initialization_20261123/A1189",
+        "source_sha256": "4c05e91c2f27289ebed11d0829f2d46c1d331a14c6040c7f1a1bb4f5ec96a075",
+        "train_images": 1189,
+        "train_foreign": 520,
+        "train_material": 0
+      },
+      "B1189": {
+        "path": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B1189",
+        "source_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+        "train_images": 1189,
+        "train_foreign": 520,
+        "train_material": 8330
+      }
+    },
+    "weights": {
+      "s": {
+        "path": "/root/autodl-tmp/weights/yolo26s-obb.pt",
+        "sha256": "38dbd72ef6804f9bbbea7ad20f486e6ca6e093c8cd9bc857207a846565bd6e0b"
+      },
+      "m": {
+        "path": "/root/autodl-tmp/weights/yolo26m-obb.pt",
+        "sha256": "23e0630f66857cf4b87535f6e705b065f1e8a33603640b8e61ace85b75312903"
+      },
+      "l": {
+        "path": "/root/autodl-tmp/weights/yolo26l-obb.pt",
+        "sha256": "8674b0c24bf68aab5eb45009e0ac3808ce432237edf8cb5c50ae2191cb263a2b"
+      },
+      "x": {
+        "path": "/root/autodl-tmp/weights/yolo26x-obb.pt",
+        "sha256": "d7b1d805b0ec149890efde89119ef9d60481566ec83166052c04b5d89d9e3cb7"
+      }
+    },
+    "test_sha256": "97e109a63890c573438cd8a1f645f7cec72c25f2648d68fdf0aa4bacfde3518b"
+  },
+  "archive": {
+    "path": "/root/autodl-tmp/yolo_obb_1122/obb_matrix_20261123/2026-11-24_YOLO26-OBB_T724_best_weights.zip",
+    "bytes": 931895621,
+    "sha256": "0ce1d3cd22c1f675891f2cb44144df567ee30778816502ed55494002e067e6aa"
+  },
+  "verified": "2026-11-24T21:56:32+08:00"
+}

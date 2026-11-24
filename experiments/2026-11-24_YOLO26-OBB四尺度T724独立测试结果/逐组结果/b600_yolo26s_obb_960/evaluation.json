@@ -1,0 +1,352 @@
+{
+  "run_config": {
+    "dataset": "B600",
+    "scale": "s",
+    "data": {
+      "path": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600",
+      "source_sha256": "b0ed0f8bdcac5e54e659c611d19de9680f5495cae92e775a7271a90f0a7b2ddc",
+      "train_images": 600,
+      "train_foreign": 269,
+      "train_material": 4263
+    },
+    "pretrained": {
+      "path": "/root/autodl-tmp/weights/yolo26s-obb.pt",
+      "sha256": "38dbd72ef6804f9bbbea7ad20f486e6ca6e093c8cd9bc857207a846565bd6e0b"
+    },
+    "test_sha256": "97e109a63890c573438cd8a1f645f7cec72c25f2648d68fdf0aa4bacfde3518b",
+    "torch": "2.8.0+cu128",
+    "ultralytics": "8.4.115",
+    "gpu": "NVIDIA GeForce RTX 3080 Ti",
+    "config": {
+      "data": "/root/autodl-tmp/yolo_obb_1122/b_series_20261123/B600/data.yaml",
+      "imgsz": 960,
+      "epochs": 100,
+      "batch": 5,
+      "device": 0,
+      "workers": 8,
+      "cache": "ram",
+      "amp": true,
+      "seed": 26,
+      "deterministic": true,
+      "patience": 20,
+      "save_period": 20,
+      "optimizer": "AdamW",
+      "lr0": 0.001,
+      "lrf": 0.01,
+      "weight_decay": 0.0005,
+      "cos_lr": true,
+      "mosaic": 0.5,
+      "close_mosaic": 10,
+      "mixup": 0.0,
+      "copy_paste": 0.0,
+      "degrees": 0.0,
+      "translate": 0.05,
+      "scale": 0.3,
+      "fliplr": 0.5,
+      "flipud": 0.0,
+      "plots": false,
+      "project": "/root/autodl-tmp/yolo_obb_1122/obb_matrix_20261123/runs",
+      "name": "b600_yolo26s_obb_960",
+      "exist_ok": false
+    },
+    "amp": true
+  },
+  "checkpoint_comparison": [
+    {
+      "checkpoint": "best.pt",
+      "sha256": "2a87dfdfdd2d129a13c2a22924b486a5cab5dc675776c15601897c0c09fc470a",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7773316502571107,
+          "foreign_detected": 35,
+          "positive_alarms": 36,
+          "positive_matched": 35,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.4930329322814942,
+          "foreign_detected": 87,
+          "positive_alarms": 90,
+          "positive_matched": 86,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.48123896121978765,
+          "foreign_detected": 87,
+          "positive_alarms": 90,
+          "positive_matched": 86,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "last.pt",
+      "sha256": "bd87006beeada951069ca2c8aa3b4fa265e09cdc136227dd425a14b5f03fc5f1",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7870396971702577,
+          "foreign_detected": 28,
+          "positive_alarms": 28,
+          "positive_matched": 28,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.4757502973079682,
+          "foreign_detected": 87,
+          "positive_alarms": 90,
+          "positive_matched": 86,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.46730968356132513,
+          "foreign_detected": 87,
+          "positive_alarms": 90,
+          "positive_matched": 86,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch0.pt",
+      "sha256": "ce52d39cf1af4f79778647a0d446d1229d15fbea2418bd167b92558ee06baed7",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.01958815380930901,
+          "foreign_detected": 5,
+          "positive_alarms": 13,
+          "positive_matched": 5,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.00806053075939417,
+          "foreign_detected": 7,
+          "positive_alarms": 20,
+          "positive_matched": 7,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.004076304379850627,
+          "foreign_detected": 14,
+          "positive_alarms": 29,
+          "positive_matched": 14,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch20.pt",
+      "sha256": "d45566676e10904eb61a1c7aa90d304e2bbd75381ab5bfe80d44b836d32e0744",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.6153765916824342,
+          "foreign_detected": 22,
+          "positive_alarms": 24,
+          "positive_matched": 22,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.5091629624366761,
+          "foreign_detected": 42,
+          "positive_alarms": 51,
+          "positive_matched": 42,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.47657752037048345,
+          "foreign_detected": 51,
+          "positive_alarms": 61,
+          "positive_matched": 51,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch40.pt",
+      "sha256": "40677713955991b726a0b5a23fff0716161c3145211bb7a412e196553a2b634f",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7016142606735231,
+          "foreign_detected": 13,
+          "positive_alarms": 12,
+          "positive_matched": 12,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.44860377907752996,
+          "foreign_detected": 62,
+          "positive_alarms": 73,
+          "positive_matched": 61,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.43004986643791204,
+          "foreign_detected": 65,
+          "positive_alarms": 76,
+          "positive_matched": 64,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch60.pt",
+      "sha256": "073e89580227e42c7715e6e075df22b0e4ff4ebd07c252e2293f77c5aa625ac6",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.6809538602828981,
+          "foreign_detected": 61,
+          "positive_alarms": 65,
+          "positive_matched": 60,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.5950019955635072,
+          "foreign_detected": 80,
+          "positive_alarms": 84,
+          "positive_matched": 79,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.5219351649284364,
+          "foreign_detected": 82,
+          "positive_alarms": 87,
+          "positive_matched": 81,
+          "negative_alarms": 2
+        }
+      ]
+    },
+    {
+      "checkpoint": "epoch80.pt",
+      "sha256": "f756652c6c99f756f5373bb3893cbc92ec2152fd9ebe3bd8419720ba69d137fa",
+      "operating_points": [
+        {
+          "negative_budget": 0,
+          "confidence": 0.7700207829475404,
+          "foreign_detected": 21,
+          "positive_alarms": 21,
+          "positive_matched": 21,
+          "negative_alarms": 0
+        },
+        {
+          "negative_budget": 1,
+          "confidence": 0.7041727900505067,
+          "foreign_detected": 43,
+          "positive_alarms": 45,
+          "positive_matched": 43,
+          "negative_alarms": 1
+        },
+        {
+          "negative_budget": 2,
+          "confidence": 0.5893111228942872,
+          "foreign_detected": 79,
+          "positive_alarms": 81,
+          "positive_matched": 78,
+          "negative_alarms": 2
+        }
+      ]
+    }
+  ],
+  "test": {
+    "checkpoint": "best.pt",
+    "sha256": "2a87dfdfdd2d129a13c2a22924b486a5cab5dc675776c15601897c0c09fc470a",
+    "predict_settings": {
+      "imgsz": 960,
+      "device": 0,
+      "conf": 0.001,
+      "iou": 0.7,
+      "max_det": 300,
+      "batch": 1,
+      "end2end": false,
+      "agnostic_nms": false,
+      "classes": [
+        0
+      ],
+      "verbose": false
+    },
+    "ap": {
+      "ap50": 0.6850146439494939,
+      "ap50_95": 0.2603481995690808,
+      "ap_by_iou": {
+        "50": 0.6850146439494939,
+        "55": 0.5596693847564723,
+        "60": 0.4414765514947661,
+        "65": 0.363275982325764,
+        "70": 0.2693357473070829,
+        "75": 0.17325819866610187,
+        "80": 0.08597549155226018,
+        "85": 0.023452435618631175,
+        "90": 0.0020235600202356003,
+        "95": 0.0
+      }
+    },
+    "frames_at_max_det": 0,
+    "timing_ms": {
+      "p50": 16.301932279020548,
+      "p95": 17.30624120682478
+    },
+    "test_at_val_thresholds": [
+      {
+        "validation_negative_budget": 0,
+        "confidence": 0.7773316502571107,
+        "tp": 80,
+        "fp": 8,
+        "fn": 176,
+        "instance_recall": 0.3125,
+        "instance_precision": 0.9090909090909091,
+        "negative_false_alarms": 0,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.0,
+        "positive_alarms": 87,
+        "positive_matched": 80,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 1,
+        "confidence": 0.4930329322814942,
+        "tp": 182,
+        "fp": 77,
+        "fn": 74,
+        "instance_recall": 0.7109375,
+        "instance_precision": 0.7027027027027027,
+        "negative_false_alarms": 4,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.008403361344537815,
+        "positive_alarms": 214,
+        "positive_matched": 181,
+        "positive_total": 248
+      },
+      {
+        "validation_negative_budget": 2,
+        "confidence": 0.48123896121978765,
+        "tp": 183,
+        "fp": 79,
+        "fn": 73,
+        "instance_recall": 0.71484375,
+        "instance_precision": 0.6984732824427481,
+        "negative_false_alarms": 5,
+        "negative_total": 476,
+        "negative_false_alarm_rate": 0.01050420168067227,
+        "positive_alarms": 215,
+        "positive_matched": 182,
+        "positive_total": 248
+      }
+    ]
+  }
+}
