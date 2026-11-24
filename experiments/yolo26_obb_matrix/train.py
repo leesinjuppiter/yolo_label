@@ -10,6 +10,8 @@ import ultralytics
 from ultralytics import YOLO
 from ultralytics.utils.torch_utils import strip_optimizer
 
+from vram import select_batch
+
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
@@ -36,6 +38,7 @@ def main():
         "fliplr": .5, "flipud": 0.0, "plots": False,
         "project": str(args.run.parent), "name": args.run.name, "exist_ok": False,
     }
+    calibration = None
     last = args.run / "weights/last.pt"
     if last.exists():
         checkpoint = torch.load(last, map_location="cpu", weights_only=False)
@@ -48,6 +51,9 @@ def main():
         resume = True
     else:
         assert not args.run.exists(), f"Incomplete run with no resumable checkpoint: {args.run}"
+        calibration = select_batch(args.inputs, args.dataset, args.scale, weight["path"], settings)
+        print(f"VRAM_BATCH_CONFIG {args.dataset} {args.scale} {calibration['batch']}", flush=True)
+        settings["batch"] = calibration["batch"]
         model = YOLO(weight["path"], task="obb")
         assert model.task == "obb"
         resume = False
@@ -58,7 +64,8 @@ def main():
             path.write_text(json.dumps({"dataset": args.dataset, "scale": args.scale,
                 "data": dataset, "pretrained": weight, "test_sha256": inputs["test_sha256"],
                 "torch": torch.__version__, "ultralytics": ultralytics.__version__,
-                "gpu": torch.cuda.get_device_name(0), "config": settings, "amp": bool(trainer.amp)}, indent=2)+"\n")
+                "gpu": torch.cuda.get_device_name(0), "config": settings, "amp": bool(trainer.amp),
+                "vram_calibration": calibration}, indent=2)+"\n")
 
     def epoch_start(trainer):
         trainer.matrix_start_time = time.perf_counter()
